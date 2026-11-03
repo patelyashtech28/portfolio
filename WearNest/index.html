@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURA THREADS | Fashion & Apparel</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Announcement Bar -->
+    <div class="announcement-bar">
+        ✨ FREE SHIPPING ON ORDERS OVER $75 | USE CODE <strong>AURA25</strong> FOR 15% OFF ✨
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="navbar">
+        <div class="logo">AURA<span>THREADS</span></div>
+        <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" id="search-input" placeholder="Search jackets, hoodies, dresses...">
+        </div>
+        <div class="nav-actions">
+            <button class="cart-btn" id="cart-btn">
+                <i class="fa-solid fa-bag-shopping"></i>
+                <span id="cart-count">0</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="hero-banner">
+        <div class="hero-content">
+            <span class="hero-tag">NEW ARRIVALS 2026</span>
+            <h1>ELEVATE YOUR EVERYDAY STYLE</h1>
+            <p>Minimalist design meets premium streetwear fashion.</p>
+            <a href="#product-grid" class="shop-now-btn">Shop Collection</a>
+        </div>
+    </section>
+
+    <!-- Main Store Content -->
+    <main class="main-container">
+        <!-- Category Filter Pills -->
+        <section class="category-section">
+            <div class="category-filters" id="category-filters">
+                <button class="filter-btn active" data-category="all">All Items</button>
+                <button class="filter-btn" data-category="men">Men's Apparel</button>
+                <button class="filter-btn" data-category="women">Women's Apparel</button>
+                <button class="filter-btn" data-category="footwear">Footwear</button>
+                <button class="filter-btn" data-category="accessories">Accessories</button>
+            </div>
+        </section>
+
+        <!-- Product Grid -->
+        <section class="product-grid" id="product-grid">
+            <!-- Products dynamic loading -->
+        </section>
+    </main>
+
+    <!-- Slide-out Cart Drawer -->
+    <div class="cart-drawer" id="cart-drawer">
+        <div class="cart-header">
+            <h3>Your Shopping Bag</h3>
+            <button id="close-cart"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <!-- Cart items dynamic loading -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total-row">
+                <span>Subtotal</span>
+                <span id="cart-total-price">$0.00</span>
+            </div>
+            <p class="shipping-note">Taxes & shipping calculated at checkout.</p>
+            <button id="checkout-btn" class="checkout-btn">Proceed to Checkout</button>
+        </div>
+    </div>
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Quick View Product Modal -->
+    <div class="modal" id="product-modal">
+        <div class="modal-content">
+            <button class="close-modal" id="close-modal"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-body" id="modal-body">
+                <!-- Modal content dynamic loading -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
