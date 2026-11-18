@@ -1,96 +1,586 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AURA THREADS | Fashion & Apparel</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- FontAwesome Icons -->
+    <title>AuraThread | Luxury & Contemporary Fashion</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        creamBg: '#fcfbf9',
+                        softGray: '#f4f2ee',
+                        charcoalText: '#1c1c1c',
+                        goldAccent: '#c5a059',
+                        goldHover: '#b08d4b',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fcfbf9;
+            color: #1c1c1c;
+        }
+        h1, h2, h3, .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f4f2ee;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d1cbc1;
+            border-radius: 3px;
+        }
+    </style>
 </head>
-<body>
+<body class="bg-creamBg text-charcoalText antialiased selection:bg-goldAccent selection:text-white">
 
-    <!-- Announcement Bar -->
-    <div class="announcement-bar">
-        ✨ FREE SHIPPING ON ORDERS OVER $75 | USE CODE <strong>AURA25</strong> FOR 15% OFF ✨
+    <!-- Top Announcement Bar -->
+    <div class="bg-charcoalText text-white text-xs py-2 px-4 text-center font-medium tracking-wider">
+        <span>✨ Complimentary shipping on orders over ₹1,999 | Use code <strong class="text-goldAccent">AURA20</strong> for 20% off</span>
     </div>
 
-    <!-- Navigation Header -->
-    <header class="navbar">
-        <div class="logo">AURA<span>THREADS</span></div>
-        <div class="search-box">
-            <i class="fa-solid fa-magnifying-glass search-icon"></i>
-            <input type="text" id="search-input" placeholder="Search jackets, hoodies, dresses...">
-        </div>
-        <div class="nav-actions">
-            <button class="cart-btn" id="cart-btn">
-                <i class="fa-solid fa-bag-shopping"></i>
-                <span id="cart-count">0</span>
-            </button>
-        </div>
-    </header>
+    <!-- Navigation Bar -->
+    <nav class="sticky top-0 z-40 bg-creamBg/90 backdrop-blur-md border-b border-gray-200 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Mobile Menu Button -->
+                <div class="flex items-center md:hidden">
+                    <button id="menu-btn" class="text-charcoalText hover:text-goldAccent focus:outline-none p-2 rounded-lg">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
 
-    <!-- Hero Banner -->
-    <section class="hero-banner">
-        <div class="hero-content">
-            <span class="hero-tag">NEW ARRIVALS 2026</span>
-            <h1>ELEVATE YOUR EVERYDAY STYLE</h1>
-            <p>Minimalist design meets premium streetwear fashion.</p>
-            <a href="#product-grid" class="shop-now-btn">Shop Collection</a>
+                <!-- Brand Logo -->
+                <a href="#home" class="text-2xl sm:text-3xl font-serif font-bold tracking-tight text-charcoalText flex items-center space-x-2">
+                    <span>Aura<span class="text-goldAccent">Thread</span></span>
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#mens" class="nav-link text-sm font-medium hover:text-goldAccent transition-colors">Men's Wear</a>
+                    <a href="#womens" class="nav-link text-sm font-medium hover:text-goldAccent transition-colors">Women's Wear</a>
+                    <a href="#kids" class="nav-link text-sm font-medium hover:text-goldAccent transition-colors">Kid's Wear</a>
+                    <a href="#footwear" class="nav-link text-sm font-medium hover:text-goldAccent transition-colors">Footwears</a>
+                    <a href="#accessories" class="nav-link text-sm font-medium hover:text-goldAccent transition-colors">Accessories</a>
+                </div>
+
+                <!-- Right Action Icons (Search & Cart) -->
+                <div class="flex items-center space-x-5">
+                    <button onclick="openSearchModal()" class="text-charcoalText hover:text-goldAccent transition-colors p-2" title="Search">
+                        <i class="fa-solid fa-search text-lg"></i>
+                    </button>
+                    <button onclick="toggleCartDrawer()" class="relative text-charcoalText hover:text-goldAccent transition-colors p-2" title="Shopping Cart">
+                        <i class="fa-solid fa-bag-shopping text-xl"></i>
+                        <span id="cart-counter" class="absolute top-0 right-0 w-5 h-5 bg-goldAccent text-white text-xs font-bold rounded-full flex items-center justify-center shadow-sm">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-creamBg border-b border-gray-200 px-6 py-4 space-y-3">
+            <a href="#mens" class="mobile-link block text-base font-medium py-1 hover:text-goldAccent">Men's Wear</a>
+            <a href="#womens" class="mobile-link block text-base font-medium py-1 hover:text-goldAccent">Women's Wear</a>
+            <a href="#kids" class="mobile-link block text-base font-medium py-1 hover:text-goldAccent">Kid's Wear</a>
+            <a href="#footwear" class="mobile-link block text-base font-medium py-1 hover:text-goldAccent">Footwears</a>
+            <a href="#accessories" class="mobile-link block text-base font-medium py-1 hover:text-goldAccent">Accessories</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative bg-softGray py-20 lg:py-28 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-6 space-y-6 text-center lg:text-left">
+                    <span class="inline-block px-3 py-1 rounded-full bg-goldAccent/10 text-goldAccent text-xs font-semibold uppercase tracking-widest">Autumn / Winter Collection</span>
+                    <h1 class="text-4xl sm:text-6xl font-serif font-bold text-charcoalText leading-tight">
+                        Elegance Woven Into <span class="italic text-goldAccent">Every Thread</span>
+                    </h1>
+                    <p class="text-gray-600 text-base sm:text-lg max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                        Discover contemporary silhouettes, premium fabrics, and timeless accessories designed for the modern wardrobe. Crafted for effortless style.
+                    </p>
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+                        <a href="#womens" class="w-full sm:w-auto px-8 py-3.5 bg-charcoalText text-white rounded-full font-medium hover:bg-goldAccent transition-all text-center shadow-md">
+                            Shop Women
+                        </a>
+                        <a href="#mens" class="w-full sm:w-auto px-8 py-3.5 bg-white text-charcoalText border border-gray-300 rounded-full font-medium hover:border-goldAccent hover:text-goldAccent transition-all text-center">
+                            Shop Men
+                        </a>
+                    </div>
+                </div>
+                <div class="lg:col-span-6">
+                    <div class="relative rounded-2xl overflow-hidden shadow-2xl group">
+                        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=800" 
+                             alt="AuraThread Fashion Showcase" 
+                             onerror="this.src='https://placehold.co/800x600/f4f2ee/1c1c1c?text=AuraThread+Collection'"
+                             class="w-full h-[400px] sm:h-[480px] object-cover object-center group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent flex items-end p-8">
+                            <div class="text-white">
+                                <p class="text-xs uppercase tracking-widest text-goldAccent font-semibold">Featured Look</p>
+                                <h3 class="text-2xl font-serif">Minimalist Autumn Neutrals</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Main Store Content -->
-    <main class="main-container">
-        <!-- Category Filter Pills -->
-        <section class="category-section">
-            <div class="category-filters" id="category-filters">
-                <button class="filter-btn active" data-category="all">All Items</button>
-                <button class="filter-btn" data-category="men">Men's Apparel</button>
-                <button class="filter-btn" data-category="women">Women's Apparel</button>
-                <button class="filter-btn" data-category="footwear">Footwear</button>
-                <button class="filter-btn" data-category="accessories">Accessories</button>
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-24">
+
+        <!-- SECTION 1: MEN'S WEAR -->
+        <section id="mens" class="scroll-mt-28">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-10 border-b border-gray-200 pb-4">
+                <div>
+                    <span class="text-goldAccent text-xs uppercase tracking-widest font-semibold">Curated Collection</span>
+                    <h2 class="text-3xl sm:text-4xl font-serif font-bold text-charcoalText mt-1">Men's Wear</h2>
+                </div>
+                <p class="text-gray-500 text-sm mt-2 sm:mt-0">Refined tailoring, casual outerwear, and everyday essentials.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8" id="grid-mens">
+                <!-- Dynamic Items Injected by JS -->
             </div>
         </section>
 
-        <!-- Product Grid -->
-        <section class="product-grid" id="product-grid">
-            <!-- Products dynamic loading -->
+        <!-- SECTION 2: WOMEN'S WEAR -->
+        <section id="womens" class="scroll-mt-28">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-10 border-b border-gray-200 pb-4">
+                <div>
+                    <span class="text-goldAccent text-xs uppercase tracking-widest font-semibold">Curated Collection</span>
+                    <h2 class="text-3xl sm:text-4xl font-serif font-bold text-charcoalText mt-1">Women's Wear</h2>
+                </div>
+                <p class="text-gray-500 text-sm mt-2 sm:mt-0">Graceful dresses, chic knitwear, and modern statement pieces.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8" id="grid-womens">
+                <!-- Dynamic Items Injected by JS -->
+            </div>
         </section>
+
+        <!-- SECTION 3: KID'S WEAR -->
+        <section id="kids" class="scroll-mt-28">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-10 border-b border-gray-200 pb-4">
+                <div>
+                    <span class="text-goldAccent text-xs uppercase tracking-widest font-semibold">Curated Collection</span>
+                    <h2 class="text-3xl sm:text-4xl font-serif font-bold text-charcoalText mt-1">Kid's Wear</h2>
+                </div>
+                <p class="text-gray-500 text-sm mt-2 sm:mt-0">Playful, comfortable, and durable styles for little ones.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8" id="grid-kids">
+                <!-- Dynamic Items Injected by JS -->
+            </div>
+        </section>
+
+        <!-- SECTION 4: FOOTWEARS -->
+        <section id="footwear" class="scroll-mt-28">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-10 border-b border-gray-200 pb-4">
+                <div>
+                    <span class="text-goldAccent text-xs uppercase tracking-widest font-semibold">Curated Collection</span>
+                    <h2 class="text-3xl sm:text-4xl font-serif font-bold text-charcoalText mt-1">Footwears</h2>
+                </div>
+                <p class="text-gray-500 text-sm mt-2 sm:mt-0">From sophisticated leather loafers to everyday comfort sneakers.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8" id="grid-footwear">
+                <!-- Dynamic Items Injected by JS -->
+            </div>
+        </section>
+
+        <!-- SECTION 5: ACCESSORIES -->
+        <section id="accessories" class="scroll-mt-28">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-10 border-b border-gray-200 pb-4">
+                <div>
+                    <span class="text-goldAccent text-xs uppercase tracking-widest font-semibold">Curated Collection</span>
+                    <h2 class="text-3xl sm:text-4xl font-serif font-bold text-charcoalText mt-1">Accessories</h2>
+                </div>
+                <p class="text-gray-500 text-sm mt-2 sm:mt-0">Handbags, silk scarves, belts, and timeless timepieces.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8" id="grid-accessories">
+                <!-- Dynamic Items Injected by JS -->
+            </div>
+        </section>
+
     </main>
 
-    <!-- Slide-out Cart Drawer -->
-    <div class="cart-drawer" id="cart-drawer">
-        <div class="cart-header">
-            <h3>Your Shopping Bag</h3>
-            <button id="close-cart"><i class="fa-solid fa-xmark"></i></button>
-        </div>
-        <div class="cart-items" id="cart-items">
-            <!-- Cart items dynamic loading -->
-        </div>
-        <div class="cart-footer">
-            <div class="cart-total-row">
-                <span>Subtotal</span>
-                <span id="cart-total-price">$0.00</span>
+    <!-- SLIDE-OUT CART DRAWER -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 overflow-hidden hidden">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity" onclick="toggleCartDrawer()"></div>
+
+        <div class="absolute inset-y-0 right-0 max-w-full flex pl-10">
+            <div class="w-screen max-w-md bg-creamBg shadow-2xl flex flex-col">
+                <!-- Drawer Header -->
+                <div class="flex items-center justify-between px-6 py-5 border-b border-gray-200 bg-white">
+                    <h2 class="text-lg font-serif font-bold text-charcoalText flex items-center">
+                        <i class="fa-solid fa-bag-shopping text-goldAccent mr-2"></i> Your Shopping Bag (<span id="cart-item-count">0</span>)
+                    </h2>
+                    <button onclick="toggleCartDrawer()" class="text-gray-400 hover:text-charcoalText p-2 rounded-full">
+                        <i class="fa-solid fa-xmark text-xl"></i>
+                    </button>
+                </div>
+
+                <!-- Cart Items List -->
+                <div id="cart-items-container" class="flex-1 overflow-y-auto p-6 space-y-4 divide-y divide-gray-100">
+                    <!-- Dynamic Cart Items or Empty State -->
+                </div>
+
+                <!-- Drawer Footer & Checkout -->
+                <div class="border-t border-gray-200 p-6 bg-white space-y-4">
+                    <div class="flex justify-between text-base font-medium text-charcoalText">
+                        <p>Subtotal</p>
+                        <p id="cart-subtotal">₹0</p>
+                    </div>
+                    <p class="text-xs text-gray-500">Shipping and taxes calculated at checkout.</p>
+                    <button onclick="checkout()" class="w-full py-3.5 bg-charcoalText text-white rounded-xl font-medium hover:bg-goldAccent transition-colors shadow-md">
+                        Proceed to Checkout
+                    </button>
+                    <button onclick="toggleCartDrawer()" class="w-full py-2.5 text-sm text-gray-600 hover:text-charcoalText font-medium">
+                        Continue Shopping
+                    </button>
+                </div>
             </div>
-            <p class="shipping-note">Taxes & shipping calculated at checkout.</p>
-            <button id="checkout-btn" class="checkout-btn">Proceed to Checkout</button>
         </div>
     </div>
-    <div class="overlay" id="overlay"></div>
 
-    <!-- Quick View Product Modal -->
-    <div class="modal" id="product-modal">
-        <div class="modal-content">
-            <button class="close-modal" id="close-modal"><i class="fa-solid fa-xmark"></i></button>
-            <div class="modal-body" id="modal-body">
-                <!-- Modal content dynamic loading -->
+    <!-- SEARCH MODAL -->
+    <div id="search-modal" class="fixed inset-0 z-50 flex items-start justify-center pt-20 px-4 bg-black/60 backdrop-blur-sm hidden">
+        <div class="bg-creamBg w-full max-w-2xl rounded-2xl shadow-2xl p-6 relative border border-gray-200">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-xl font-serif font-bold text-charcoalText">Search AuraThread</h3>
+                <button onclick="closeSearchModal()" class="text-gray-400 hover:text-charcoalText p-2">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <div class="relative mb-6">
+                <i class="fa-solid fa-search absolute left-4 top-3.5 text-gray-400"></i>
+                <input type="text" id="search-input" oninput="handleSearch(this.value)" placeholder="Search for jackets, dresses, footwear..." class="w-full bg-white border border-gray-300 rounded-xl pl-11 pr-4 py-3 text-charcoalText placeholder-gray-400 focus:outline-none focus:border-goldAccent text-sm shadow-sm">
+            </div>
+            <div id="search-results" class="max-h-96 overflow-y-auto space-y-3">
+                <p class="text-xs text-gray-400 text-center py-6">Type something above to search across all collections.</p>
             </div>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <!-- NOTIFICATION TOAST -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 bg-charcoalText text-white px-6 py-3 rounded-xl shadow-2xl transform translate-y-24 opacity-0 transition-all duration-300 flex items-center space-x-3 text-sm">
+        <i class="fa-solid fa-circle-check text-goldAccent"></i>
+        <span id="toast-message">Item added to your bag</span>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 text-gray-600 py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+                <div class="space-y-4">
+                    <h3 class="text-2xl font-serif font-bold text-charcoalText">Aura<span class="text-goldAccent">Thread</span></h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">
+                        Redefining contemporary luxury through sustainable craftsmanship, timeless aesthetics, and exceptional fabrics.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-sm font-semibold uppercase tracking-wider text-charcoalText mb-4">Collections</h4>
+                    <ul class="space-y-2.5 text-sm">
+                        <li><a href="#mens" class="hover:text-goldAccent transition-colors">Men's Wear</a></li>
+                        <li><a href="#womens" class="hover:text-goldAccent transition-colors">Women's Wear</a></li>
+                        <li><a href="#kids" class="hover:text-goldAccent transition-colors">Kid's Wear</a></li>
+                        <li><a href="#footwear" class="hover:text-goldAccent transition-colors">Footwears</a></li>
+                        <li><a href="#accessories" class="hover:text-goldAccent transition-colors">Accessories</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-sm font-semibold uppercase tracking-wider text-charcoalText mb-4">Customer Care</h4>
+                    <ul class="space-y-2.5 text-sm">
+                        <li><a href="#" class="hover:text-goldAccent transition-colors">Track Order</a></li>
+                        <li><a href="#" class="hover:text-goldAccent transition-colors">Shipping & Returns</a></li>
+                        <li><a href="#" class="hover:text-goldAccent transition-colors">Size Guide</a></li>
+                        <li><a href="#" class="hover:text-goldAccent transition-colors">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-sm font-semibold uppercase tracking-wider text-charcoalText mb-4">Newsletter</h4>
+                    <p class="text-sm text-gray-500 mb-4">Subscribe to receive updates, access to exclusive sales, and more.</p>
+                    <form onsubmit="handleNewsletter(event)" class="flex items-center space-x-2">
+                        <input type="email" required placeholder="Enter your email" class="bg-softGray border border-gray-300 rounded-xl px-4 py-2.5 text-sm text-charcoalText focus:outline-none focus:border-goldAccent flex-1">
+                        <button type="submit" class="px-4 py-2.5 bg-charcoalText text-white rounded-xl text-sm font-medium hover:bg-goldAccent transition-colors">Join</button>
+                    </form>
+                </div>
+            </div>
+            <div class="border-t border-gray-100 pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-400">
+                <p>&copy; 2026 AuraThread Luxury Store. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 sm:mt-0">
+                    <a href="#" class="hover:text-charcoalText transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-charcoalText transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Product Catalog Data across 5 sections
+        const products = [
+            // Men's Wear
+            { id: 'm1', category: 'mens', name: 'Tailored Linen Blazer', price: 4299, rating: 4.8, reviews: 42, image: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&q=80&w=600' },
+            { id: 'm2', category: 'mens', name: 'Relaxed Fit Cotton Shirt', price: 1899, rating: 4.6, reviews: 38, image: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&q=80&w=600' },
+            { id: 'm3', category: 'mens', name: 'Slim Pleated Trousers', price: 2499, rating: 4.7, reviews: 29, image: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&q=80&w=600' },
+            { id: 'm4', category: 'mens', name: 'Merino Wool Crewneck', price: 2999, rating: 4.9, reviews: 51, image: 'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&q=80&w=600' },
+
+            // Women's Wear
+            { id: 'w1', category: 'womens', name: 'Silk Wrap Midi Dress', price: 4899, rating: 4.9, reviews: 76, image: 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&q=80&w=600' },
+            { id: 'w2', category: 'womens', name: 'Pleated Chiffon Blouse', price: 2199, rating: 4.5, reviews: 31, image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=600' },
+            { id: 'w3', category: 'womens', name: 'Structured Trench Coat', price: 6499, rating: 5.0, reviews: 88, image: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=600' },
+            { id: 'w4', category: 'womens', name: 'High-Waist Wide Leg Pants', price: 2799, rating: 4.7, reviews: 45, image: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&q=80&w=600' },
+
+            // Kid's Wear
+            { id: 'k1', category: 'kids', name: 'Organic Cotton Play Set', price: 1299, rating: 4.7, reviews: 19, image: 'https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?auto=format&fit=crop&q=80&w=600' },
+            { id: 'k2', category: 'kids', name: 'Ditsy Floral Sun Dress', price: 1499, rating: 4.8, reviews: 24, image: 'https://images.unsplash.com/photo-1622290291468-a28f7a7dc6a8?auto=format&fit=crop&q=80&w=600' },
+            { id: 'k3', category: 'kids', name: 'Denim Overalls Jacket', price: 1799, rating: 4.6, reviews: 15, image: 'https://images.unsplash.com/photo-1503944583220-74d89e5a45a9?auto=format&fit=crop&q=80&w=600' },
+            { id: 'k4', category: 'kids', name: 'Knit Striped Cardigan', price: 1399, rating: 4.9, reviews: 27, image: 'https://images.unsplash.com/photo-1522771930-78848d9293e8?auto=format&fit=crop&q=80&w=600' },
+
+            // Footwears
+            { id: 'f1', category: 'footwear', name: 'Italian Leather Loafers', price: 5499, rating: 4.9, reviews: 62, image: 'https://images.unsplash.com/photo-1533867617858-e7d97e060837?auto=format&fit=crop&q=80&w=600' },
+            { id: 'f2', category: 'footwear', name: 'Minimalist White Sneakers', price: 3299, rating: 4.8, reviews: 94, image: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&q=80&w=600' },
+            { id: 'f3', category: 'footwear', name: 'Strappy Heeled Sandals', price: 3899, rating: 4.6, reviews: 41, image: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&q=80&w=600' },
+            { id: 'f4', category: 'footwear', name: 'Suede Chelsea Boots', price: 5999, rating: 4.9, reviews: 58, image: 'https://images.unsplash.com/photo-1638247025967-b4e38f787b76?auto=format&fit=crop&q=80&w=600' },
+
+            // Accessories
+            { id: 'a1', category: 'accessories', name: 'Quilted Leather Handbag', price: 4499, rating: 4.9, reviews: 83, image: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&q=80&w=600' },
+            { id: 'a2', category: 'accessories', name: 'Classic Gold Watch', price: 6999, rating: 5.0, reviews: 112, image: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&q=80&w=600' },
+            { id: 'a3', category: 'accessories', name: 'Pure Silk Printed Scarf', price: 1599, rating: 4.7, reviews: 34, image: 'https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?auto=format&fit=crop&q=80&w=600' },
+            { id: 'a4', category: 'accessories', name: 'Minimalist Metal Sunglasses', price: 2299, rating: 4.6, reviews: 49, image: 'https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&q=80&w=600' }
+        ];
+
+        // Shopping Cart Array
+        let cart = [];
+
+        // Render products into their respective sections
+        function renderProducts() {
+            const categories = ['mens', 'womens', 'kids', 'footwear', 'accessories'];
+            
+            categories.forEach(cat => {
+                const container = document.getElementById(`grid-${cat}`);
+                if (!container) return;
+
+                const catProducts = products.filter(p => p.category === cat);
+                container.innerHTML = catProducts.map(product => `
+                    <div class="bg-white rounded-2xl overflow-hidden border border-gray-200/80 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+                        <div class="relative overflow-hidden bg-gray-100 aspect-[4/5]">
+                            <img src="${product.image}" alt="${product.name}" 
+                                 onerror="this.src='https://placehold.co/600x750/f4f2ee/1c1c1c?text=AuraThread'"
+                                 class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500">
+                            <button onclick="addToCart('${product.id}')" class="absolute bottom-4 right-4 w-11 h-11 bg-white text-charcoalText rounded-full shadow-lg flex items-center justify-center hover:bg-goldAccent hover:text-white transition-all transform translate-y-12 opacity-0 group-hover:translate-y-0 group-hover:opacity-100" title="Quick Add">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </div>
+                        <div class="p-5 flex flex-col flex-1 justify-between">
+                            <div>
+                                <div class="flex items-center space-x-1 text-amber-500 text-xs mb-1.5">
+                                    <i class="fa-solid fa-star"></i>
+                                    <span class="font-medium text-gray-700">${product.rating}</span>
+                                    <span class="text-gray-400">(${product.reviews})</span>
+                                </div>
+                                <h3 class="text-base font-medium text-charcoalText mb-1">${product.name}</h3>
+                                <p class="text-lg font-serif font-bold text-charcoalText">₹${product.price.toLocaleString()}</p>
+                            </div>
+                            <button onclick="addToCart('${product.id}')" class="mt-4 w-full py-2.5 bg-softGray text-charcoalText rounded-xl font-medium text-sm hover:bg-charcoalText hover:text-white transition-colors">
+                                Add to Bag
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            });
+        }
+
+        // Add item to cart
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            const existingItem = cart.find(item => item.id === productId);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+
+            updateCartUI();
+            showToast(`Added "${product.name}" to your bag`);
+        }
+
+        // Remove item from cart
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCartUI();
+        }
+
+        // Update quantity
+        function updateQuantity(productId, change) {
+            const item = cart.find(item => item.id === productId);
+            if (!item) return;
+
+            item.quantity += change;
+            if (item.quantity <= 0) {
+                removeFromCart(productId);
+            } else {
+                updateCartUI();
+            }
+        }
+
+        // Update Cart UI badges and drawer list
+        function updateCartUI() {
+            const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+            // Update badge counters
+            document.getElementById('cart-counter').textContent = totalCount;
+            document.getElementById('cart-item-count').textContent = totalCount;
+            document.getElementById('cart-subtotal').textContent = `₹${subtotal.toLocaleString()}`;
+
+            // Update cart items container
+            const container = document.getElementById('cart-items-container');
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-16">
+                        <i class="fa-solid fa-bag-shopping text-4xl text-gray-300 mb-4"></i>
+                        <p class="text-gray-500 font-medium">Your shopping bag is empty.</p>
+                        <p class="text-xs text-gray-400 mt-1">Explore our collections and add your favorites.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = cart.map(item => `
+                <div class="flex items-center space-x-4 py-4">
+                    <img src="${item.image}" alt="${item.name}" class="w-20 h-20 object-cover rounded-xl border border-gray-200">
+                    <div class="flex-1">
+                        <h4 class="text-sm font-medium text-charcoalText">${item.name}</h4>
+                        <p class="text-sm font-serif font-bold text-charcoalText mt-1">₹${item.price.toLocaleString()}</p>
+                        <div class="flex items-center space-x-3 mt-2">
+                            <div class="flex items-center border border-gray-300 rounded-lg overflow-hidden">
+                                <button onclick="updateQuantity('${item.id}', -1)" class="px-2.5 py-1 text-gray-500 hover:bg-gray-100">-</button>
+                                <span class="px-3 text-xs font-medium">${item.quantity}</span>
+                                <button onclick="updateQuantity('${item.id}', 1)" class="px-2.5 py-1 text-gray-500 hover:bg-gray-100">+</button>
+                            </div>
+                            <button onclick="removeFromCart('${item.id}')" class="text-gray-400 hover:text-red-500 text-xs transition-colors">Remove</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Toggle Cart Drawer
+        function toggleCartDrawer() {
+            const drawer = document.getElementById('cart-drawer');
+            drawer.classList.toggle('hidden');
+        }
+
+        // Search Modal Functions
+        function openSearchModal() {
+            document.getElementById('search-modal').classList.remove('hidden');
+            document.getElementById('search-input').focus();
+        }
+
+        function closeSearchModal() {
+            document.getElementById('search-modal').classList.add('hidden');
+        }
+
+        function handleSearch(query) {
+            const resultsContainer = document.getElementById('search-results');
+            if (!query.trim()) {
+                resultsContainer.innerHTML = '<p class="text-xs text-gray-400 text-center py-6">Type something above to search across all collections.</p>';
+                return;
+            }
+
+            const matched = products.filter(p => p.name.toLowerCase().includes(query.toLowerCase()) || p.category.toLowerCase().includes(query.toLowerCase()));
+            
+            if (matched.length === 0) {
+                resultsContainer.innerHTML = '<p class="text-sm text-gray-500 text-center py-6">No matching items found for your search.</p>';
+                return;
+            }
+
+            resultsContainer.innerHTML = matched.map(product => `
+                <div class="flex items-center justify-between p-3 rounded-xl hover:bg-white border border-transparent hover:border-gray-200 transition-all cursor-pointer" onclick="addToCart('${product.id}'); closeSearchModal();">
+                    <div class="flex items-center space-x-3">
+                        <img src="${product.image}" class="w-12 h-12 object-cover rounded-lg">
+                        <div>
+                            <h4 class="text-sm font-medium text-charcoalText">${product.name}</h4>
+                            <span class="text-xs text-goldAccent capitalize">${product.category}</span>
+                        </div>
+                    </div>
+                    <span class="text-sm font-serif font-bold text-charcoalText">₹${product.price.toLocaleString()}</span>
+                </div>
+            `).join('');
+        }
+
+        // Checkout simulation
+        function checkout() {
+            if (cart.length === 0) return;
+            showToast('Redirecting to secure checkout...');
+            setTimeout(() => {
+                cart = [];
+                updateCartUI();
+                toggleCartDrawer();
+                showToast('Order placed successfully! Thank you for shopping with AuraThread.');
+            }, 1500);
+        }
+
+        // Toast Notification System
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').textContent = message;
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-24', 'opacity-0');
+            }, 3500);
+        }
+
+        // Newsletter handler
+        function handleNewsletter(event) {
+            event.preventDefault();
+            showToast('Thank you for subscribing to AuraThread.');
+            event.target.reset();
+        }
+
+        // Mobile menu toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Initialize store on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+        });
+    </script>
 </body>
-</html>
+</html>     

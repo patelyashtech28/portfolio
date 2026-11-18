@@ -1,0 +1,1799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home Workouts | Muscles & Meal — 100% Free Zero-Equipment Training</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* =========================================
+       CSS VARIABLES & RESET (MATCHES MAIN SITE)
+    ========================================= */
+    :root {
+      --bg-dark: #0b0d10;
+      --bg-surface: #14171d;
+      --bg-card: #1a1e26;
+      --bg-card-hover: #222731;
+      --accent: #b8ff00; /* Electric Lime */
+      --accent-hover: #a3e600;
+      --accent-glow: rgba(184, 255, 0, 0.25);
+      --secondary: #38bdf8;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: rgba(255, 255, 255, 0.08);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 22px;
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, .brand-logo {
+      font-family: 'Outfit', sans-serif;
+      line-height: 1.15;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1220px;
+      margin: 0 auto;
+    }
+
+    .section-padding {
+      padding: 84px 0;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 660px;
+      margin: 0 auto 48px;
+    }
+
+    .section-tag {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.8px;
+      color: var(--accent);
+      background: rgba(184, 255, 0, 0.1);
+      padding: 6px 14px;
+      border-radius: 50px;
+      border: 1px solid rgba(184, 255, 0, 0.25);
+      margin-bottom: 14px;
+    }
+
+    .section-header h2 {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .section-header p {
+      color: var(--text-muted);
+      font-size: 1.02rem;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.92rem;
+      cursor: pointer;
+      border: none;
+      transition: var(--transition);
+    }
+
+    .btn-primary {
+      background-color: var(--accent);
+      color: #0b0d10;
+      box-shadow: 0 4px 20px var(--accent-glow);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--accent-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 26px rgba(184, 255, 0, 0.4);
+    }
+
+    .btn-outline {
+      background-color: transparent;
+      color: var(--text-main);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .btn-sm {
+      padding: 8px 16px;
+      font-size: 0.84rem;
+    }
+
+    /* =========================================
+       NAVBAR
+    ========================================= */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(11, 13, 16, 0.86);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 76px;
+    }
+
+    .brand-logo {
+      font-size: 1.55rem;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-logo span {
+      color: var(--accent);
+    }
+
+    .logo-icon {
+      width: 34px;
+      height: 34px;
+      background: var(--accent);
+      color: #0b0d10;
+      border-radius: 9px;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      font-size: 1.1rem;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .nav-links a {
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      transition: var(--transition);
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active-link {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+    }
+
+    .hamburger span {
+      width: 25px;
+      height: 2.5px;
+      background: var(--text-main);
+      border-radius: 3px;
+    }
+
+    /* =========================================
+       HERO SECTION
+    ========================================= */
+    .hero {
+      padding: 140px 0 80px;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 700px;
+      height: 450px;
+      background: radial-gradient(circle, rgba(184, 255, 0, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-center {
+      text-align: center;
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-card);
+      border: 1px solid rgba(184, 255, 0, 0.3);
+      padding: 8px 18px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 22px;
+    }
+
+    .hero-badge .dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    .hero h1 {
+      font-size: clamp(2.6rem, 5.5vw, 4.2rem);
+      font-weight: 900;
+      letter-spacing: -1.4px;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 .highlight {
+      color: var(--accent);
+    }
+
+    .hero p {
+      font-size: 1.12rem;
+      color: var(--text-muted);
+      max-width: 630px;
+      margin: 0 auto 32px;
+    }
+
+    .hero-btns {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 42px;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      max-width: 620px;
+      margin: 0 auto;
+      gap: 20px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      padding: 20px;
+      border-radius: var(--radius-md);
+    }
+
+    .stat-box h4 {
+      font-size: 1.55rem;
+      color: var(--accent);
+      font-weight: 800;
+    }
+
+    .stat-box span {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    /* =========================================
+       INTERACTIVE WORKOUT HUB (ROUTINE + TIMER)
+    ========================================= */
+    .hub-section {
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hub-grid {
+      display: grid;
+      grid-template-columns: 1.45fr 0.75fr;
+      gap: 30px;
+      align-items: start;
+    }
+
+    /* Day Selector Tabs */
+    .day-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .day-tab {
+      padding: 10px 18px;
+      border-radius: 50px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .day-tab.active,
+    .day-tab:hover {
+      background: var(--accent);
+      color: #0b0d10;
+      border-color: var(--accent);
+    }
+
+    .routine-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+    }
+
+    .routine-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .routine-top h3 {
+      font-size: 1.45rem;
+    }
+
+    .progress-wrap {
+      margin-bottom: 24px;
+    }
+
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 9px;
+      background: var(--bg-dark);
+      border-radius: 50px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--accent);
+      border-radius: 50px;
+      transition: width 0.35s ease;
+    }
+
+    .checklist {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .check-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      padding: 15px 18px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .check-item:hover {
+      border-color: rgba(184, 255, 0, 0.35);
+    }
+
+    .check-item.done {
+      border-color: rgba(184, 255, 0, 0.45);
+      background: rgba(184, 255, 0, 0.05);
+    }
+
+    .check-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .custom-box {
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      border: 2px solid var(--text-muted);
+      display: grid;
+      place-items: center;
+      font-size: 0.85rem;
+      font-weight: 900;
+      color: #0b0d10;
+      flex-shrink: 0;
+      transition: var(--transition);
+    }
+
+    .check-item.done .custom-box {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .check-item.done .ex-name {
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+
+    .ex-name {
+      font-weight: 600;
+      font-size: 0.98rem;
+    }
+
+    .ex-meta {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .ex-sets {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--accent);
+      background: rgba(184, 255, 0, 0.1);
+      padding: 5px 12px;
+      border-radius: 50px;
+      white-space: nowrap;
+    }
+
+    /* Built-In Rest Timer Widget */
+    .timer-card {
+      background: linear-gradient(165deg, #1b2029 0%, #12151b 100%);
+      border: 1px solid rgba(184, 255, 0, 0.3);
+      border-radius: var(--radius-lg);
+      padding: 30px 24px;
+      text-align: center;
+      position: sticky;
+      top: 96px;
+    }
+
+    .timer-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 6px;
+    }
+
+    .timer-card p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .timer-display {
+      font-family: 'Outfit', sans-serif;
+      font-size: 4rem;
+      font-weight: 900;
+      color: var(--accent);
+      line-height: 1;
+      margin: 10px 0 22px;
+      letter-spacing: -1px;
+    }
+
+    .preset-btns {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .preset-btn {
+      padding: 8px 4px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--bg-dark);
+      color: var(--text-main);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .preset-btn.active,
+    .preset-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .timer-controls {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    /* =========================================
+       EXERCISE LIBRARY GRID
+    ========================================= */
+    .filter-tabs {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 40px;
+    }
+
+    .filter-btn {
+      padding: 10px 22px;
+      border-radius: 50px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .filter-btn.active,
+    .filter-btn:hover {
+      background: var(--accent);
+      color: #0b0d10;
+      border-color: var(--accent);
+    }
+
+    .exercises-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 26px;
+    }
+
+    .exercise-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 26px;
+      display: flex;
+      flex-direction: column;
+      transition: var(--transition);
+    }
+
+    .exercise-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(184, 255, 0, 0.35);
+      background: var(--bg-card-hover);
+    }
+
+    .ex-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .ex-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(184, 255, 0, 0.1);
+      color: var(--accent);
+      display: grid;
+      place-items: center;
+      font-size: 1.4rem;
+    }
+
+    .diff-badge {
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 4px 11px;
+      border-radius: 50px;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+    }
+
+    .diff-badge.beginner { color: #4ade80; border-color: rgba(74, 222, 128, 0.3); }
+    .diff-badge.intermediate { color: #facc15; border-color: rgba(250, 204, 21, 0.3); }
+    .diff-badge.advanced { color: #fb7185; border-color: rgba(251, 113, 133, 0.3); }
+
+    .exercise-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 6px;
+    }
+
+    .target-muscle {
+      font-size: 0.84rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .exercise-card p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      flex: 1;
+    }
+
+    .ex-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    .rep-range {
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    /* =========================================
+       WARMUP & SAFETY SECTION
+    ========================================= */
+    .warmup-section {
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .warmup-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+    }
+
+    .warmup-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 32px;
+    }
+
+    .warmup-card h3 {
+      font-size: 1.35rem;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .warmup-card ul li {
+      display: flex;
+      justify-content: space-between;
+      padding: 11px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.94rem;
+      color: #cbd5e1;
+    }
+
+    .warmup-card ul li:last-child {
+      border-bottom: none;
+    }
+
+    .warmup-card ul li span {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    /* =========================================
+       FOOTER
+    ========================================= */
+    footer {
+      background: #07080a;
+      padding: 60px 0 30px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding-bottom: 30px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 24px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      transition: var(--transition);
+    }
+
+    .footer-links a:hover {
+      color: var(--accent);
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* =========================================
+       MODAL & TOAST
+    ========================================= */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.78);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 3000;
+      padding: 20px;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal-box {
+      background: var(--bg-surface);
+      border: 1px solid rgba(184, 255, 0, 0.35);
+      border-radius: var(--radius-lg);
+      max-width: 580px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 34px;
+      position: relative;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text-main);
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+    }
+
+    .modal-close:hover {
+      background: var(--accent);
+      color: #0b0d10;
+    }
+
+    .modal-tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .modal-box h3 {
+      font-size: 1.65rem;
+      margin-bottom: 12px;
+      padding-right: 30px;
+    }
+
+    .modal-section-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin: 20px 0 10px;
+    }
+
+    .modal-list {
+      padding-left: 18px;
+      color: #cbd5e1;
+      font-size: 0.94rem;
+    }
+
+    .modal-list li {
+      margin-bottom: 8px;
+      list-style: disc;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--bg-card);
+      border: 1px solid var(--accent);
+      color: var(--text-main);
+      padding: 14px 22px;
+      border-radius: var(--radius-md);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 2000;
+      transform: translateY(120px);
+      opacity: 0;
+      transition: all 0.35s ease;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* =========================================
+       RESPONSIVE DESIGN
+    ========================================= */
+    @media (max-width: 992px) {
+      .hub-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .timer-card {
+        position: static;
+      }
+
+      .exercises-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links,
+      .nav-actions .btn-outline {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .nav-links.active {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 76px;
+        left: 0;
+        width: 100%;
+        background: var(--bg-surface);
+        padding: 24px;
+        border-bottom: 1px solid var(--border);
+        gap: 18px;
+      }
+
+      .exercises-grid,
+      .warmup-grid,
+      .hero-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .routine-panel {
+        padding: 22px 16px;
+      }
+
+      .check-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= NAVBAR ================= -->
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="brand-logo">
+        <div class="logo-icon">M</div>
+        Muscles <span>&amp; Meal</span>
+      </a>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="M&M_index.html">Home</a>
+        <a href="home-workouts.html" class="active-link">Home Workouts</a>
+        <a href="recipes.html">Free Recipes</a>
+        <a href="macro_calcu.html">Macro Calculator</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="recipes.html" class="btn btn-outline btn-sm">Post-Workout Meals</a>
+        <a href="homeworkout.html" class="btn btn-primary btn-sm">Start Workout</a>
+        <button class="hamburger" id="hamburger" aria-label="Toggle Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= HERO ================= -->
+  <section class="hero">
+    <div class="container hero-center">
+      <div class="hero-badge">
+        <span class="dot"></span>
+        0 Equipment Needed &bull; 100% Free Forever
+      </div>
+      <h1>No Gym? <span class="highlight">No Problem.</span><br>Train Strong <span class="highlight">At Home.</span></h1>
+      <p>Build lean muscle, torch calories, and boost stamina right from your bedroom or living room. Follow our free daily routines, use the built-in rest timer, and master proper form.</p>
+
+      <div class="hero-btns">
+        <a href="#routine-hub" class="btn btn-primary">Open Today's Routine &darr;</a>
+        <a href="#exercise-library" class="btn btn-outline">Browse 12 Exercises</a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat-box">
+          <h4>0 Gear</h4>
+          <span>100% Bodyweight</span>
+        </div>
+        <div class="stat-box">
+          <h4>25–35m</h4>
+          <span>Daily Sessions</span>
+        </div>
+        <div class="stat-box">
+          <h4>$0</h4>
+          <span>Free For Everyone</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= INTERACTIVE HOME WORKOUT HUB & TIMER ================= -->
+  <section id="routine-hub" class="section-padding hub-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Interactive Workout Tracker</span>
+        <h2>Your 4-Day Home Split</h2>
+        <p>Select your workout day below, tap exercises to check them off as you finish, and use the built-in rest timer between sets.</p>
+      </div>
+
+      <div class="day-tabs" id="dayTabs">
+        <button class="day-tab active" data-day="day1">Day 1: Upper Push &amp; Back</button>
+        <button class="day-tab" data-day="day2">Day 2: Legs &amp; Glutes</button>
+        <button class="day-tab" data-day="day3">Day 3: Core &amp; HIIT</button>
+        <button class="day-tab" data-day="day4">Day 4: Full Body Strength</button>
+      </div>
+
+      <div class="hub-grid">
+        <!-- Left: Interactive Checklist -->
+        <div class="routine-panel">
+          <div class="routine-top">
+            <h3 id="routineTitle">Day 1: Upper Push &amp; Back</h3>
+            <button class="btn btn-outline btn-sm" id="resetDayBtn">Reset Progress</button>
+          </div>
+
+          <div class="progress-wrap">
+            <div class="progress-meta">
+              <span>Workout Completion</span>
+              <span id="progressText">0 / 5 Completed (0%)</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill" id="progressFill"></div>
+            </div>
+          </div>
+
+          <div class="checklist" id="checklistContainer">
+            <!-- Populated dynamically via JS -->
+          </div>
+        </div>
+
+        <!-- Right: Live Rest Timer -->
+        <div class="timer-card">
+          <h3>⏱ Rest Timer</h3>
+          <p>Stay disciplined between sets. Plays a chime when time is up.</p>
+
+          <div class="timer-display" id="timerDisplay">01:00</div>
+
+          <div class="preset-btns">
+            <button class="preset-btn" data-sec="30">30s</button>
+            <button class="preset-btn" data-sec="45">45s</button>
+            <button class="preset-btn active" data-sec="60">60s</button>
+            <button class="preset-btn" data-sec="90">90s</button>
+          </div>
+
+          <div class="timer-controls">
+            <button class="btn btn-primary btn-sm" id="startTimerBtn">Start</button>
+            <button class="btn btn-outline btn-sm" id="pauseTimerBtn">Pause</button>
+            <button class="btn btn-outline btn-sm" id="resetTimerBtn">Reset</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FILTERABLE HOME EXERCISE LIBRARY ================= -->
+  <section id="exercise-library" class="section-padding">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Free Exercise Guide</span>
+        <h2>12 Best At-Home Exercises</h2>
+        <p>Filter by target muscle group and click "Form &amp; Variations" to learn exact technique and easier/harder options.</p>
+      </div>
+
+      <div class="filter-tabs">
+        <button class="filter-btn active" data-filter="all">All Exercises</button>
+        <button class="filter-btn" data-filter="upper">Upper Body</button>
+        <button class="filter-btn" data-filter="lower">Lower Body</button>
+        <button class="filter-btn" data-filter="core">Core &amp; Abs</button>
+        <button class="filter-btn" data-filter="hiit">HIIT &amp; Cardio</button>
+      </div>
+
+      <div class="exercises-grid">
+        <!-- 1 -->
+        <div class="exercise-card" data-category="upper">
+          <div class="ex-card-top">
+            <div class="ex-icon">💪</div>
+            <span class="diff-badge beginner">Beginner</span>
+          </div>
+          <h3>Standard Push-Ups</h3>
+          <div class="target-muscle">Chest &bull; Front Delts &bull; Triceps</div>
+          <p>The king of upper-body home exercises. Builds pushing strength and core stability with zero gear.</p>
+          <div class="ex-card-footer">
+            <span class="rep-range">3–4 sets &times; 10–20 reps</span>
+            <button class="btn btn-primary btn-sm form-btn" data-ex="pushups">Form &amp; Tips</button>
+          </div>
+        </div>
+
+        <!-- 2 -->
+        <div class="exercise-card" data-category="upper">
+          <div class="ex-card-top">
+            <div class="ex-icon">⛰️</div>
+            <span class="diff-badge intermediate">Intermediate</span>
+          </div>
+          <h3>Pike Push-Ups</h3>
+          <div class="target-muscle">Shoulders &bull; Upper Chest &bull; Triceps</div>
+          <p>Mimics an overhead shoulder press using only your bodyweight to carve broad, strong deltoids.</p>
+          <div class="ex-card-footer">
+            <span class="rep-range">3 sets &times; 8–12 reps</span>
+            <button class="btn btn-primary btn-sm form-btn" data-ex="pike">Form &amp; Tips</button>
+          </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="exercise-card" data-category="upper">
+          <div class="ex-card-top">
+            <div class="ex-icon">🦅</div>
+            <span class="diff-badge beginner">Beginner</span>
+          </div>
+          <h3>Reverse Snow Angels</h3>
+          <div class="target-muscle">Upper Back &bull; Rear Delts &bull; Posture</div>
+          <p>Essential for balancing chest work at home. Strengthens your lats, traps, and posture without a pull-up bar.</p>
+          <div class="ex-card-footer">
+            <span class="rep-range">3 sets &times; 12–15 reps</span>
+            <button class="btn btn-primary btn-sm form-btn" data-ex="snowangels">Form &amp; Tips</button>
+          </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="exercise-card" data-category="upper">
+          <div class="ex-card-top">
+            <div class="ex-icon">🪑</div>
+            <span class="diff-badge beginner">Beginner</span>
+          </div>
+          <h3>Chair / Couch Dips</h3>
+          <div class="target-muscle">Triceps &bull; Lower Chest</div>
+          <p>Use any sturdy chair, bed edge, or sofa to isolate and pump up the back of your arms.</p>
+          <div class="ex-card-footer">
+            <span class="rep-range">3 sets &times; 12–15 reps</span>
+            <button class="btn btn-primary btn-sm form-btn" data-ex="dips">Form &amp; Tips</button>
+          </div>
+        </div>
+
+        <!-- 5 -->
+        <div class="exercise-card" data-category="lower">
+          <div class="ex-card-top">
+            <div class="ex-icon">🦵</div>
+            <span class="diff-badge beginner">Beginner</span>
+          </div>
+          <h3>Tempo Bodyweight Squats</h3>
+          <div class="target-muscle">Quads &bull; Glutes &bull; Core</div>
+          <p>Lowering slowly for 3 full seconds turns regular air squats into a serious muscle-building stimulus.</p>
+          <div class="ex-card-footer">
+            <span class="rep-range">4 sets &times; 15–20 reps</span>
+            <button class="btn btn-primary btn-sm form-btn" data-ex="squats">Form &amp; Tips</button>
+          </div>
+        </div>
+
+        <!-- 6 -->
+        <div class="exercise-card" data-category="lower">
+          <div class="ex-card-top">
+            <div class="ex-icon">🔥</div>
+            <span class="diff-badge advanced">Advanced</span>
+          </div>
+          <h3>Bulgarian Split Squats</h3>
+          <div class="target-muscle">Quads &bull; Glutes &bull; Balance</div>
+          <p>Rest one foot on your couch behind you. One of the best unilateral leg builders in existence.</p>
+          <div class="ex-card-footer">
+            <span class="rep-range">3 sets &times; 10–12 / leg</span>
+            <button class="btn btn-primary btn-sm form-btn" data-ex="bulgarian">Form &amp; Tips</button>
+          </div>
+        </div>
+
+        <!-- 7 -->
+        <div class="exercise-card" data-category="lower">
+          <div class="ex-card-top">
+            <div class="ex-icon">🌉</div>
+            <span class="diff-badge beginner">Beginner</span>
+          </div>
+          <h3>Single-Leg Glute Bridges</h3>
+          <div class="target-muscle">Glutes &bull; Hamstrings &bull; Lower Back</div>
+          <p>Targets the posterior chain safely from the floor—great for athletic power and lower-back health.</p>
+          <div class="ex-card-footer">
+            <span class="rep-range">3 sets &times; 12–15 / leg</span>
+            <button class="btn btn-primary btn-sm form-btn" data-ex="bridges">Form &amp; Tips</button>
+          </div>
+        </div>
+
+        <!-- 8 -->
+        <div class="exercise-card" data-category="lower">
+          <div class="ex-card-top">
+            <div class="ex-icon">🚶</div>
+            <span class="diff-badge intermediate">Intermediate</span>
+          </div>
+          <h3>Reverse Lunges</h3>
+          <div class="target-muscle">Quads &bull; Glutes &bull; Hip Mobility</div>
+          <p>Stepping backward reduces knee stress while keeping heavy tension on your front leg and glutes.</p>
+          <div class="ex-card-footer">
+            <span class="rep-range">3 sets &times; 12 / leg</span>
+            <button class="btn btn-primary btn-sm form-btn" data-ex="lunges">Form &amp; Tips</button>
+          </div>
+        </div>
+
+        <!-- 9 -->
+        <div class="exercise-card" data-category="core">
+          <div class="ex-card-top">
+            <div class="ex-icon">🧱</div>
+            <span class="diff-badge beginner">Beginner</span>
+          </div>
+          <h3>Forearm Plank Hold</h3>
+          <div class="target-muscle">Deep Core &bull; Abs &bull; Shoulders</div>
+          <p>Builds rock-solid isometric core stability that protects your spine during every other movement.</p>
+          <div class="ex-card-footer">
+            <span class="rep-range">3 sets &times; 45–60 sec</span>
+            <button class="btn btn-primary btn-sm form-btn" data-ex="plank">Form &amp; Tips</button>
+          </div>
+        </div>
+
+        <!-- 10 -->
+        <div class="exercise-card" data-category="core">
+          <div class="ex-card-top">
+            <div class="ex-icon">🚴</div>
+            <span class="diff-badge intermediate">Intermediate</span>
+          </div>
+          <h3>Slow Bicycle Crunches</h3>
+          <div class="target-muscle">Rectus Abdominis &bull; Obliques</div>
+          <p>Controlled rotation hits both your six-pack muscles and side obliques without straining your neck.</p>
+          <div class="ex-card-footer">
+            <span class="rep-range">3 sets &times; 20 total</span>
+            <button class="btn btn-primary btn-sm form-btn" data-ex="bicycle">Form &amp; Tips</button>
+          </div>
+        </div>
+
+        <!-- 11 -->
+        <div class="exercise-card" data-category="hiit">
+          <div class="ex-card-top">
+            <div class="ex-icon">⚡</div>
+            <span class="diff-badge intermediate">Intermediate</span>
+          </div>
+          <h3>Mountain Climbers</h3>
+          <div class="target-muscle">Core &bull; Hip Flexors &bull; Cardio</div>
+          <p>Spikes your heart rate fast in a tiny amount of floor space while torching your lower abs.</p>
+          <div class="ex-card-footer">
+            <span class="rep-range">3 sets &times; 40 sec</span>
+            <button class="btn btn-primary btn-sm form-btn" data-ex="climbers">Form &amp; Tips</button>
+          </div>
+        </div>
+
+        <!-- 12 -->
+        <div class="exercise-card" data-category="hiit">
+          <div class="ex-card-top">
+            <div class="ex-icon">💥</div>
+            <span class="diff-badge advanced">Advanced</span>
+          </div>
+          <h3>Explosive Burpees</h3>
+          <div class="target-muscle">Full Body &bull; Stamina &bull; Fat Burn</div>
+          <p>The ultimate zero-equipment conditioning finisher. Challenges every major muscle group at once.</p>
+          <div class="ex-card-footer">
+            <span class="rep-range">3 sets &times; 10–15 reps</span>
+            <button class="btn btn-primary btn-sm form-btn" data-ex="burpees">Form &amp; Tips</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= WARM-UP & RECOVERY GUIDE ================= -->
+  <section class="section-padding warmup-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Injury Prevention</span>
+        <h2>5-Minute Warm-Up &amp; Cool-Down</h2>
+        <p>Never jump into hard sets cold. Follow these quick 5-minute flows before and after your home workout.</p>
+      </div>
+
+      <div class="warmup-grid">
+        <div class="warmup-card">
+          <h3>🔥 Pre-Workout Warm-Up (5 Mins)</h3>
+          <ul>
+            <li>Jumping Jacks (light pace) <span>60 sec</span></li>
+            <li>Arm Circles (forward &amp; backward) <span>45 sec</span></li>
+            <li>World's Greatest Stretch (each side) <span>60 sec</span></li>
+            <li>Bodyweight Good Mornings <span>15 reps</span></li>
+            <li>Cat-Cow Spine Mobility <span>60 sec</span></li>
+          </ul>
+        </div>
+
+        <div class="warmup-card">
+          <h3>❄️ Post-Workout Cool-Down (5 Mins)</h3>
+          <ul>
+            <li>Doorway Chest &amp; Shoulder Stretch <span>45 sec / side</span></li>
+            <li>Child's Pose Deep Breathing <span>60 sec</span></li>
+            <li>Standing Quad Stretch <span>45 sec / leg</span></li>
+            <li>Seated Hamstring Reach <span>60 sec</span></li>
+            <li>Pigeon Glute Stretch <span>45 sec / side</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <a href="index.html" class="brand-logo">
+          <div class="logo-icon">M</div>
+          Muscles <span>&amp; Meal</span>
+        </a>
+
+        <div class="footer-links">
+          <a href="index.html">Main Home</a>
+          <a href="home-workouts.html">Home Workouts</a>
+          <a href="index.html#recipes">Free Recipes</a>
+          <a href="index.html#calculator">Macro Calculator</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Muscles &amp; Meal. 100% Free Fitness &amp; Nutrition For Everyone.</p>
+        <p>Train Smart &bull; Recover Well &bull; Eat High Protein</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= FORM GUIDE MODAL ================= -->
+  <div class="modal-overlay" id="formModal" aria-hidden="true">
+    <div class="modal-box">
+      <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+      <span class="modal-tag" id="modalTag">Exercise Guide</span>
+      <h3 id="modalTitle">Exercise Name</h3>
+      <p id="modalDesc" style="color: var(--text-muted); font-size: 0.95rem;"></p>
+
+      <div class="modal-section-title">How To Perform (Proper Form)</div>
+      <ul class="modal-list" id="modalSteps"></ul>
+
+      <div class="modal-section-title">Easier &amp; Harder Variations</div>
+      <ul class="modal-list" id="modalVars"></ul>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast">
+    <span style="color: var(--accent); font-weight: 900;">✓</span>
+    <span id="toastMsg">Notification</span>
+  </div>
+
+  <!-- ================= JAVASCRIPT ================= -->
+  <script>
+    // 1. Mobile Navigation Toggle
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+
+    // 2. Interactive 4-Day Home Workout Routine Data
+    const routines = {
+      day1: {
+        title: 'Day 1: Upper Push & Back',
+        exercises: [
+          { name: 'Standard Push-Ups', meta: 'Chest, Shoulders & Triceps • Rest 60s', sets: '4 × 12–15' },
+          { name: 'Reverse Snow Angels', meta: 'Upper Back & Rear Delts • Rest 45s', sets: '3 × 15' },
+          { name: 'Pike Push-Ups', meta: 'Shoulders & Upper Chest • Rest 60s', sets: '3 × 8–12' },
+          { name: 'Chair / Couch Dips', meta: 'Triceps Focus • Rest 60s', sets: '3 × 12–15' },
+          { name: 'Forearm Plank Hold', meta: 'Core Stability • Rest 45s', sets: '3 × 45–60s' }
+        ]
+      },
+      day2: {
+        title: 'Day 2: Legs & Glutes',
+        exercises: [
+          { name: 'Tempo Bodyweight Squats (3s down)', meta: 'Quads & Glutes • Rest 60s', sets: '4 × 15–20' },
+          { name: 'Bulgarian Split Squats (Couch)', meta: 'Unilateral Quad & Glute Builder • Rest 75s', sets: '3 × 10 / leg' },
+          { name: 'Alternating Reverse Lunges', meta: 'Legs & Balance • Rest 60s', sets: '3 × 12 / leg' },
+          { name: 'Single-Leg Glute Bridges', meta: 'Hamstrings & Glutes • Rest 45s', sets: '3 × 15 / leg' },
+          { name: 'Standing Calf Raises (Stair/Book)', meta: 'Calves • Rest 30s', sets: '4 × 20' }
+        ]
+      },
+      day3: {
+        title: 'Day 3: Core & HIIT Conditioning',
+        exercises: [
+          { name: 'Mountain Climbers', meta: 'Cardio & Lower Abs • Rest 45s', sets: '4 × 40s' },
+          { name: 'Slow Bicycle Crunches', meta: 'Abs & Obliques • Rest 45s', sets: '3 × 20 total' },
+          { name: 'Explosive Burpees (or Step-Backs)', meta: 'Full Body Fat Burn • Rest 60s', sets: '3 × 12' },
+          { name: 'Lying Leg Raises', meta: 'Lower Abs • Rest 45s', sets: '3 × 12–15' },
+          { name: 'Forearm Plank Hold', meta: 'Finisher Core Burn • Rest 45s', sets: '2 × 60s' }
+        ]
+      },
+      day4: {
+        title: 'Day 4: Full Body Strength',
+        exercises: [
+          { name: 'Diamond / Close-Grip Push-Ups', meta: 'Triceps & Inner Chest • Rest 60s', sets: '3 × 10–12' },
+          { name: 'Jump Squats (or Fast Squats)', meta: 'Explosive Legs • Rest 60s', sets: '3 × 15' },
+          { name: 'Superman Back Holds', meta: 'Lower & Upper Back • Rest 45s', sets: '3 × 40s' },
+          { name: 'Reverse Lunges', meta: 'Legs & Glutes • Rest 60s', sets: '3 × 12 / leg' },
+          { name: 'Slow Bicycle Crunches', meta: 'Core • Rest 45s', sets: '3 × 20 total' }
+        ]
+      }
+    };
+
+    let currentDay = 'day1';
+    const completedState = {
+      day1: [],
+      day2: [],
+      day3: [],
+      day4: []
+    };
+
+    const checklistContainer = document.getElementById('checklistContainer');
+    const routineTitle = document.getElementById('routineTitle');
+    const progressText = document.getElementById('progressText');
+    const progressFill = document.getElementById('progressFill');
+
+    function renderRoutine(dayKey) {
+      currentDay = dayKey;
+      const data = routines[dayKey];
+      routineTitle.textContent = data.title;
+
+      checklistContainer.innerHTML = data.exercises.map((ex, idx) => {
+        const isDone = completedState[dayKey].includes(idx);
+        return `
+          <div class="check-item ${isDone ? 'done' : ''}" data-index="${idx}">
+            <div class="check-left">
+              <div class="custom-box">${isDone ? '✓' : ''}</div>
+              <div>
+                <div class="ex-name">${ex.name}</div>
+                <div class="ex-meta">${ex.meta}</div>
+              </div>
+            </div>
+            <span class="ex-sets">${ex.sets}</span>
+          </div>
+        `;
+      }).join('');
+
+      updateProgress();
+
+      // Bind clicks to check items
+      document.querySelectorAll('.check-item').forEach(item => {
+        item.addEventListener('click', () => {
+          const idx = parseInt(item.getAttribute('data-index'));
+          const list = completedState[currentDay];
+          if (list.includes(idx)) {
+            completedState[currentDay] = list.filter(i => i !== idx);
+          } else {
+            completedState[currentDay].push(idx);
+          }
+          renderRoutine(currentDay);
+        });
+      });
+    }
+
+    function updateProgress() {
+      const total = routines[currentDay].exercises.length;
+      const done = completedState[currentDay].length;
+      const pct = Math.round((done / total) * 100);
+
+      progressText.textContent = `${done} / ${total} Completed (${pct}%)`;
+      progressFill.style.width = `${pct}%`;
+
+      if (done === total && total > 0) {
+        showToast('Awesome work! You crushed today’s home workout!');
+      }
+    }
+
+    // Day Tab Switching
+    document.querySelectorAll('.day-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.day-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        renderRoutine(tab.getAttribute('data-day'));
+      });
+    });
+
+    document.getElementById('resetDayBtn').addEventListener('click', () => {
+      completedState[currentDay] = [];
+      renderRoutine(currentDay);
+      showToast('Progress reset for this day.');
+    });
+
+    renderRoutine('day1');
+
+    // 3. Built-In Rest Timer with Web Audio Chime
+    let timerDuration = 60;
+    let timeRemaining = 60;
+    let timerInterval = null;
+
+    const timerDisplay = document.getElementById('timerDisplay');
+
+    function formatTime(seconds) {
+      const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+      const s = String(seconds % 60).padStart(2, '0');
+      return `${m}:${s}`;
+    }
+
+    function playChime() {
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(880, ctx.currentTime);
+        gain.gain.setValueAtTime(0.15, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.5);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.5);
+      } catch (e) {
+        // Fallback if audio context is blocked
+      }
+    }
+
+    function updateTimerUI() {
+      timerDisplay.textContent = formatTime(timeRemaining);
+    }
+
+    document.querySelectorAll('.preset-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        clearInterval(timerInterval);
+        timerInterval = null;
+        timerDuration = parseInt(btn.getAttribute('data-sec'));
+        timeRemaining = timerDuration;
+        updateTimerUI();
+      });
+    });
+
+    document.getElementById('startTimerBtn').addEventListener('click', () => {
+      if (timerInterval) return;
+      if (timeRemaining <= 0) timeRemaining = timerDuration;
+
+      timerInterval = setInterval(() => {
+        timeRemaining--;
+        updateTimerUI();
+        if (timeRemaining <= 0) {
+          clearInterval(timerInterval);
+          timerInterval = null;
+          playChime();
+          showToast('Rest is over! Time for your next set!');
+        }
+      }, 1000);
+    });
+
+    document.getElementById('pauseTimerBtn').addEventListener('click', () => {
+      clearInterval(timerInterval);
+      timerInterval = null;
+    });
+
+    document.getElementById('resetTimerBtn').addEventListener('click', () => {
+      clearInterval(timerInterval);
+      timerInterval = null;
+      timeRemaining = timerDuration;
+      updateTimerUI();
+    });
+
+    // 4. Exercise Library Filtering
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const exerciseCards = document.querySelectorAll('.exercise-card');
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.getAttribute('data-filter');
+
+        exerciseCards.forEach(card => {
+          const cat = card.getAttribute('data-category');
+          card.style.display = (filter === 'all' || cat === filter) ? 'flex' : 'none';
+        });
+      });
+    });
+
+    // 5. Form Guide Modal Data & Logic
+    const formGuides = {
+      pushups: {
+        tag: 'Upper Body • Chest & Triceps',
+        title: 'Standard Push-Ups',
+        desc: 'Keep your body in a rigid straight line from head to heels.',
+        steps: [
+          'Place hands slightly wider than shoulder-width apart.',
+          'Tuck elbows at a 45-degree angle (do not flare them out to 90 degrees).',
+          'Lower your chest until it hovers 1 inch off the floor, then push back up explosively.'
+        ],
+        vars: [
+          'Easier: Incline Push-Ups (hands on a couch or sturdy table) or Knee Push-Ups.',
+          'Harder: Decline Push-Ups (feet elevated on a chair) or 3-second slow negatives.'
+        ]
+      },
+      pike: {
+        tag: 'Upper Body • Shoulders',
+        title: 'Pike Push-Ups',
+        desc: 'Targets the front and side deltoids just like a barbell overhead press.',
+        steps: [
+          'Start in a downward-dog "V" shape with hips pushed high toward the ceiling.',
+          'Bend your elbows and lower the top of your head forward toward the floor (forming a triangle with your hands).',
+          'Press straight back up until arms are locked out.'
+        ],
+        vars: [
+          'Easier: Bend your knees slightly or perform standard Incline Push-Ups.',
+          'Harder: Elevate your feet on a couch or chair for deeper shoulder range.'
+        ]
+      },
+      snowangels: {
+        tag: 'Upper Body • Back & Posture',
+        title: 'Reverse Snow Angels',
+        desc: 'Strengthens the rear shoulders, mid-back, and traps with zero gear.',
+        steps: [
+          'Lie flat on your stomach with your forehead resting slightly off the floor and arms extended overhead.',
+          'Lift your hands, chest, and arms slightly off the ground by squeezing your shoulder blades.',
+          'Sweep your arms smoothly down to your hips in a wide arc, then return overhead.'
+        ],
+        vars: [
+          'Easier: Keep your chest resting lightly on the floor and only lift your arms.',
+          'Harder: Hold light water bottles in each hand or pause for 3 seconds at the bottom.'
+        ]
+      },
+      dips: {
+        tag: 'Upper Body • Triceps',
+        title: 'Chair / Couch Dips',
+        desc: 'A simple, effective bodyweight triceps builder using household furniture.',
+        steps: [
+          'Sit on the edge of a sturdy chair or sofa with hands gripping the edge beside your hips.',
+          'Slide your hips slightly forward off the seat and keep your back close to the chair.',
+          'Lower yourself until your elbows reach 90 degrees, then press back up through your palms.'
+        ],
+        vars: [
+          'Easier: Keep your knees bent at 90 degrees with feet flat on the floor.',
+          'Harder: Straighten your legs fully out in front of you on your heels.'
+        ]
+      },
+      squats: {
+        tag: 'Lower Body • Quads & Glutes',
+        title: 'Tempo Bodyweight Squats',
+        desc: 'Time under tension makes bodyweight squats challenge even experienced lifters.',
+        steps: [
+          'Stand with feet shoulder-width apart and toes pointed slightly outward.',
+          'Push hips back and bend knees, counting 3 full seconds on the way down.',
+          'Pause for 1 second at parallel (or deeper), then drive up through mid-foot.'
+        ],
+        vars: [
+          'Easier: Box Squats (tap a chair behind you at the bottom for confidence).',
+          'Harder: 1.5-Rep Squats (go all the way down, halfway up, back down, then stand).'
+        ]
+      },
+      bulgarian: {
+        tag: 'Lower Body • Quads & Glutes',
+        title: 'Bulgarian Split Squats',
+        desc: 'Unmatched single-leg strength and hypertrophy with zero weights.',
+        steps: [
+          'Stand 2 feet in front of a couch or chair and rest the top of your back foot on it.',
+          'Keep your torso leaned slightly forward and lower your back knee toward the floor.',
+          'Drive strongly through your front heel to stand back up.'
+        ],
+        vars: [
+          'Easier: Regular Split Squats with both feet on the floor.',
+          'Harder: Hold a loaded backpack in front of your chest or add a 2-second pause at the bottom.'
+        ]
+      },
+      bridges: {
+        tag: 'Lower Body • Glutes & Hamstrings',
+        title: 'Single-Leg Glute Bridges',
+        desc: 'Doubles the load on your working glute and hamstring compared to two-leg bridges.',
+        steps: [
+          'Lie on your back with knees bent, feet flat on the floor. Extend one leg straight up.',
+          'Drive through the heel of your planted foot to lift your hips until torso and thigh align.',
+          'Squeeze your glute hard at the top for 2 seconds before lowering slowly.'
+        ],
+        vars: [
+          'Easier: Standard Two-Leg Glute Bridges.',
+          'Harder: Elevate your planted foot on a couch or low stool for greater range of motion.'
+        ]
+      },
+      lunges: {
+        tag: 'Lower Body • Legs & Balance',
+        title: 'Reverse Lunges',
+        desc: 'Knee-friendly lower body builder that challenges balance and hip stability.',
+        steps: [
+          'Stand tall with feet hip-width apart.',
+          'Step one foot backward and lower until both knees form 90-degree angles.',
+          'Push firmly off your front foot to return to standing.'
+        ],
+        vars: [
+          'Easier: Hold onto a wall or chair lightly for balance.',
+          'Harder: Deficit Reverse Lunges (stand on a thick book) or Jumping Lunges.'
+        ]
+      },
+      plank: {
+        tag: 'Core • Deep Stability',
+        title: 'Forearm Plank Hold',
+        desc: 'Trains your abs to resist arching and stabilize your entire spine.',
+        steps: [
+          'Rest on your forearms with elbows directly underneath your shoulders.',
+          'Squeeze your glutes and brace your abs tightly as if preparing for a light punch.',
+          'Hold without letting your hips sag or hike up.'
+        ],
+        vars: [
+          'Easier: Perform from your knees or elevate forearms on a couch.',
+          'Harder: Walk elbows slightly further forward (Long-Lever Plank) or do Shoulder Taps.'
+        ]
+      },
+      bicycle: {
+        tag: 'Core • Abs & Obliques',
+        title: 'Slow Bicycle Crunches',
+        desc: 'Slowing down removes momentum and forces your abs to do 100% of the work.',
+        steps: [
+          'Lie on your back with fingertips lightly behind your ears (do not pull your neck).',
+          'Lift shoulder blades off the floor and bring opposite elbow toward opposite knee.',
+          'Pause for 1 second on each twist while extending the other leg low.'
+        ],
+        vars: [
+          'Easier: Keep your extended leg higher in the air to reduce lower-back strain.',
+          'Harder: Hold each side twist for 2 full seconds.'
+        ]
+      },
+      climbers: {
+        tag: 'HIIT • Core & Conditioning',
+        title: 'Mountain Climbers',
+        desc: 'Dynamic plank movement that burns calories fast and strengthens hip flexors.',
+        steps: [
+          'Start in a strong high-plank position with hands under shoulders.',
+          'Drive one knee rapidly toward your chest while keeping hips low and level.',
+          'Alternate legs quickly while breathing steadily.'
+        ],
+        vars: [
+          'Easier: Slow March Climbers (step one foot up at a time with control).',
+          'Harder: Cross-Body Mountain Climbers (drive knee toward opposite elbow).'
+        ]
+      },
+      burpees: {
+        tag: 'HIIT • Full Body Finisher',
+        title: 'Explosive Burpees',
+        desc: 'Combines a squat, plank, push-up, and jump into one total-body conditioning drill.',
+        steps: [
+          'Drop into a squat and place hands firmly on the floor.',
+          'Kick feet back into a plank, perform a push-up (optional), and jump feet back to hands.',
+          'Stand and explode upward with a vertical jump and clap overhead.'
+        ],
+        vars: [
+          'Easier: Step feet back one at a time and skip the push-up and jump.',
+          'Harder: Chest-to-floor Burpees with a high tuck jump.'
+        ]
+      }
+    };
+
+    const formModal = document.getElementById('formModal');
+    const modalClose = document.getElementById('modalClose');
+
+    document.querySelectorAll('.form-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const key = btn.getAttribute('data-ex');
+        const info = formGuides[key];
+        if (!info) return;
+
+        document.getElementById('modalTag').textContent = info.tag;
+        document.getElementById('modalTitle').textContent = info.title;
+        document.getElementById('modalDesc').textContent = info.desc;
+        document.getElementById('modalSteps').innerHTML = info.steps.map(s => `<li>${s}</li>`).join('');
+        document.getElementById('modalVars').innerHTML = info.vars.map(v => `<li>${v}</li>`).join('');
+
+        formModal.classList.add('open');
+        formModal.setAttribute('aria-hidden', 'false');
+      });
+    });
+
+    function closeModal() {
+      formModal.classList.remove('open');
+      formModal.setAttribute('aria-hidden', 'true');
+    }
+
+    modalClose.addEventListener('click', closeModal);
+    formModal.addEventListener('click', (e) => {
+      if (e.target === formModal) closeModal();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    // 6. Toast Notification
+    const toast = document.getElementById('toast');
+    const toastMsg = document.getElementById('toastMsg');
+    let toastTimeout;
+
+    function showToast(msg) {
+      toastMsg.textContent = msg;
+      toast.classList.add('show');
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free Fitness Recipes & Milkshakes | Muscles & Meal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* =========================================
+       CSS VARIABLES & RESET
+    ========================================= */
+    :root {
+      --bg-dark: #0b0d10;
+      --bg-surface: #14171d;
+      --bg-card: #1a1e26;
+      --bg-card-hover: #222731;
+      --accent: #b8ff00; /* Electric Lime */
+      --accent-hover: #a3e600;
+      --accent-glow: rgba(184, 255, 0, 0.25);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: rgba(255, 255, 255, 0.08);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 22px;
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, .brand-logo {
+      font-family: 'Outfit', sans-serif;
+      line-height: 1.15;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+
+    .section-padding {
+      padding: 80px 0;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.92rem;
+      cursor: pointer;
+      border: none;
+      transition: var(--transition);
+    }
+
+    .btn-primary {
+      background-color: var(--accent);
+      color: #0b0d10;
+      box-shadow: 0 4px 20px var(--accent-glow);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--accent-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 26px rgba(184, 255, 0, 0.4);
+    }
+
+    .btn-outline {
+      background-color: transparent;
+      color: var(--text-main);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .btn-sm {
+      padding: 8px 16px;
+      font-size: 0.84rem;
+    }
+
+    /* =========================================
+       NAVBAR
+    ========================================= */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(11, 13, 16, 0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 76px;
+    }
+
+    .brand-logo {
+      font-size: 1.55rem;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-logo span {
+      color: var(--accent);
+    }
+
+    .logo-icon {
+      width: 34px;
+      height: 34px;
+      background: var(--accent);
+      color: #0b0d10;
+      border-radius: 9px;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      font-size: 1.1rem;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .nav-links a {
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      transition: var(--transition);
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active-link {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+    }
+
+    .hamburger span {
+      width: 25px;
+      height: 2.5px;
+      background: var(--text-main);
+      border-radius: 3px;
+    }
+
+    /* =========================================
+       HERO
+    ========================================= */
+    .hero {
+      padding: 140px 0 70px;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -120px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 720px;
+      height: 450px;
+      background: radial-gradient(circle, rgba(184, 255, 0, 0.13) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-card);
+      border: 1px solid rgba(184, 255, 0, 0.3);
+      padding: 8px 18px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 22px;
+    }
+
+    .hero-badge .dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 900;
+      letter-spacing: -1.4px;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 .highlight {
+      color: var(--accent);
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 660px;
+      margin: 0 auto 32px;
+    }
+
+    /* Search + Filter Bar */
+    .controls-bar {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .search-box {
+      position: relative;
+      max-width: 480px;
+      margin: 0 auto 26px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 14px 22px 14px 46px;
+      border-radius: 50px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text-main);
+      font-size: 0.96rem;
+      font-family: inherit;
+      outline: none;
+      transition: var(--transition);
+    }
+
+    .search-box input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(184, 255, 0, 0.12);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+
+    .filter-tabs {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .filter-btn {
+      padding: 10px 20px;
+      border-radius: 50px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .filter-btn.active,
+    .filter-btn:hover {
+      background: var(--accent);
+      color: #0b0d10;
+      border-color: var(--accent);
+    }
+
+    /* =========================================
+       RECIPES GRID
+    ========================================= */
+    .recipes-meta-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .recipes-meta-bar h2 {
+      font-size: 1.7rem;
+    }
+
+    .recipe-count {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      background: var(--bg-card);
+      padding: 6px 14px;
+      border-radius: 50px;
+      border: 1px solid var(--border);
+    }
+
+    .recipes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .recipe-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: var(--transition);
+    }
+
+    .recipe-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(184, 255, 0, 0.35);
+      background: var(--bg-card-hover);
+    }
+
+    .recipe-img {
+      position: relative;
+      height: 225px;
+      background: linear-gradient(135deg, #1d222b, #12151a);
+      overflow: hidden;
+    }
+
+    .recipe-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .recipe-card:hover .recipe-img img {
+      transform: scale(1.06);
+    }
+
+    .cat-badge {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: rgba(11, 13, 16, 0.88);
+      backdrop-filter: blur(6px);
+      color: var(--accent);
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 50px;
+      border: 1px solid rgba(184, 255, 0, 0.35);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+
+    .free-pill {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: var(--accent);
+      color: #0b0d10;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 50px;
+      text-transform: uppercase;
+    }
+
+    .recipe-body {
+      padding: 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .recipe-body h3 {
+      font-size: 1.25rem;
+      margin-bottom: 8px;
+    }
+
+    .recipe-body p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+      flex: 1;
+    }
+
+    .macros-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      background: var(--bg-surface);
+      padding: 12px;
+      border-radius: var(--radius-sm);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .macro-item strong {
+      display: block;
+      font-size: 0.95rem;
+      color: var(--text-main);
+    }
+
+    .macro-item span {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .recipe-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .prep-time {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 60px 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      display: none;
+    }
+
+    /* =========================================
+       QUICK NUTRITION TIPS STRIP
+    ========================================= */
+    .tips-section {
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .tip-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 24px;
+    }
+
+    .tip-card span {
+      font-size: 1.6rem;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .tip-card h4 {
+      font-size: 1.05rem;
+      margin-bottom: 8px;
+      color: var(--accent);
+    }
+
+    .tip-card p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    /* =========================================
+       FOOTER
+    ========================================= */
+    footer {
+      background: #07080a;
+      padding: 60px 0 30px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding-bottom: 30px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 24px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      transition: var(--transition);
+    }
+
+    .footer-links a:hover {
+      color: var(--accent);
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* =========================================
+       FULL RECIPE MODAL
+    ========================================= */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 3000;
+      padding: 20px;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal-box {
+      background: var(--bg-surface);
+      border: 1px solid rgba(184, 255, 0, 0.35);
+      border-radius: var(--radius-lg);
+      max-width: 660px;
+      width: 100%;
+      max-height: 88vh;
+      overflow-y: auto;
+      position: relative;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75);
+      animation: modalPop 0.25s ease-out;
+    }
+
+    @keyframes modalPop {
+      from { transform: scale(0.94); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-hero-img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      background: #1a1e26;
+    }
+
+    .modal-content {
+      padding: 28px 32px 32px;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(11, 13, 16, 0.85);
+      color: var(--text-main);
+      font-size: 1.3rem;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      transition: var(--transition);
+    }
+
+    .modal-close:hover {
+      background: var(--accent);
+      color: #0b0d10;
+    }
+
+    .modal-tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    .modal-content h3 {
+      font-size: 1.75rem;
+      margin-bottom: 10px;
+    }
+
+    .modal-tip-box {
+      background: rgba(184, 255, 0, 0.08);
+      border: 1px solid rgba(184, 255, 0, 0.25);
+      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 0.88rem;
+      color: #e2e8f0;
+      margin: 14px 0 18px;
+    }
+
+    .modal-section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 22px 0 10px;
+    }
+
+    .modal-section-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .modal-list {
+      padding-left: 20px;
+      color: #cbd5e1;
+      font-size: 0.94rem;
+    }
+
+    .modal-list li {
+      margin-bottom: 8px;
+      list-style: disc;
+    }
+
+    .modal-steps li {
+      list-style: decimal;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--bg-card);
+      border: 1px solid var(--accent);
+      color: var(--text-main);
+      padding: 14px 22px;
+      border-radius: var(--radius-md);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 4000;
+      transform: translateY(120px);
+      opacity: 0;
+      transition: all 0.35s ease;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* =========================================
+       RESPONSIVE DESIGN
+    ========================================= */
+    @media (max-width: 992px) {
+      .recipes-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .tips-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links,
+      .nav-actions .btn-outline {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .nav-links.active {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 76px;
+        left: 0;
+        width: 100%;
+        background: var(--bg-surface);
+        padding: 24px;
+        border-bottom: 1px solid var(--border);
+        gap: 18px;
+      }
+
+      .recipes-grid,
+      .tips-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .modal-content {
+        padding: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= NAVBAR ================= -->
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="brand-logo">
+        <div class="logo-icon">M</div>
+        Muscles <span>&amp; Meal</span>
+      </a>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="M&M_index.html">Home</a>
+        <a href="homeworkout.html">Home Workouts</a>
+        <a href="recipes.html" class="active-link">Free Recipes</a>
+        <a href="macro_calcu.html">Macro Calculator</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="homeworkout.html" class="btn btn-outline btn-sm">Workouts</a>
+        <a href="macro_calcu.html" class="btn btn-primary btn-sm">Calc Macros</a>
+        <button class="hamburger" id="hamburger" aria-label="Toggle Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= HERO & CONTROLS ================= -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-badge">
+        <span class="dot"></span>
+        16 Step-by-Step Recipes &bull; 100% Free Forever
+      </div>
+      <h1>Fuel Every <span class="highlight">Goal.</span><br>Simple, Healthy <span class="highlight">Meals &amp; Shakes.</span></h1>
+      <p>From quick pre-workout fuel and post-workout recovery bowls to bulking, fat-loss meals, and creamy high-protein milkshakes—every recipe is completely free.</p>
+
+      <div class="controls-bar">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="searchInput" placeholder="Search recipes (e.g., chicken, oats, banana, salmon, mango)..." />
+        </div>
+
+        <div class="filter-tabs" id="filterTabs">
+          <button class="filter-btn active" data-filter="all">All (16)</button>
+          <button class="filter-btn" data-filter="pre">Pre-Workout</button>
+          <button class="filter-btn" data-filter="post">Post-Workout</button>
+          <button class="filter-btn" data-filter="gain">Weight Gain</button>
+          <button class="filter-btn" data-filter="loss">Weight Loss</button>
+          <button class="filter-btn" data-filter="shakes">Healthy Milkshakes</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= RECIPES GRID ================= -->
+  <section class="section-padding">
+    <div class="container">
+      <div class="recipes-meta-bar">
+        <h2 id="activeCategoryTitle">All Fitness Recipes &amp; Milkshakes</h2>
+        <span class="recipe-count" id="recipeCount">Showing 16 recipes</span>
+      </div>
+
+      <div class="recipes-grid" id="recipesGrid">
+        <!-- Populated dynamically via JS so all 16 cards & full recipes stay 100% synced -->
+      </div>
+
+      <div class="empty-state" id="emptyState">
+        <h3>No recipes matched your search</h3>
+        <p style="color: var(--text-muted); margin: 8px 0 18px;">Try searching for another ingredient like "oats", "chicken", "banana", or reset your filter.</p>
+        <button class="btn btn-primary btn-sm" id="resetFiltersBtn">Show All Recipes</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= TIMING GUIDE ================= -->
+  <section class="section-padding tips-section">
+    <div class="container">
+      <div class="tips-grid">
+        <div class="tip-card">
+          <span>⚡</span>
+          <h4>Pre-Workout Timing</h4>
+          <p>Eat fast-to-moderate carbs 45–75 minutes before training to maximize strength and prevent mid-workout fatigue.</p>
+        </div>
+        <div class="tip-card">
+          <span>💪</span>
+          <h4>Post-Workout Recovery</h4>
+          <p>Aim for 35g–50g of lean protein plus quality carbs within 1–2 hours after lifting to trigger muscle protein synthesis.</p>
+        </div>
+        <div class="tip-card">
+          <span>📈</span>
+          <h4>Smart Weight Gain</h4>
+          <p>Use healthy fats (peanut butter, olive oil, salmon) and nutrient-dense carbs rather than junk food for clean mass.</p>
+        </div>
+        <div class="tip-card">
+          <span>🔥</span>
+          <h4>Sustainable Fat Loss</h4>
+          <p>Prioritize high-volume greens, fiber, and lean protein so you stay full even while eating in a calorie deficit.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <a href="index.html" class="brand-logo">
+          <div class="logo-icon">M</div>
+          Muscles <span>&amp; Meal</span>
+        </a>
+
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="home-workouts.html">Home Workouts</a>
+          <a href="recipes.html">Free Recipes</a>
+          <a href="index.html#calculator">Macro Calculator</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Muscles &amp; Meal. Open &amp; Free Recipes For Everyone.</p>
+        <p>Eat Real Food &bull; Train Consistently</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= FULL RECIPE MODAL ================= -->
+  <div class="modal-overlay" id="recipeModal" aria-hidden="true">
+    <div class="modal-box">
+      <button class="modal-close" id="modalClose" aria-label="Close modal">&times;</button>
+      <img src="" alt="" class="modal-hero-img" id="modalImg" onerror="this.style.display='none'">
+
+      <div class="modal-content">
+        <span class="modal-tag" id="modalTag">Category</span>
+        <h3 id="modalTitle">Recipe Name</h3>
+
+        <div class="macros-bar" id="modalMacros" style="margin-top: 14px;"></div>
+
+        <div class="modal-tip-box" id="modalTip"></div>
+
+        <div class="modal-section-header">
+          <div class="modal-section-title">Ingredients</div>
+          <button class="btn btn-outline btn-sm" id="copyIngredientsBtn">Copy List</button>
+        </div>
+        <ul class="modal-list" id="modalIngredients"></ul>
+
+        <div class="modal-section-header">
+          <div class="modal-section-title">Step-by-Step Recipe</div>
+        </div>
+        <ul class="modal-list modal-steps" id="modalSteps"></ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast">
+    <span style="color: var(--accent); font-weight: 900;">✓</span>
+    <span id="toastMsg">Copied!</span>
+  </div>
+
+  <!-- ================= JAVASCRIPT ================= -->
+  <script>
+    // 1. Mobile Nav Toggle
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+
+    // 2. Complete 16-Recipe Database (Pre-Workout, Post-Workout, Weight Gain, Weight Loss, Healthy Milkshakes)
+    const recipes = [
+      // -------- PRE-WORKOUT MEALS --------
+      {
+        id: 'pre-oats',
+        category: 'pre',
+        categoryLabel: 'Pre-Workout',
+        title: 'Banana Peanut Butter Power Oats',
+        summary: 'Slow-release rolled oats topped with banana slices and natural peanut butter for sustained workout energy.',
+        image: 'https://images.unsplash.com/photo-1548807371-30dc1bbe6cb5?auto=format&fit=crop&w=800&q=80',
+        time: '10 mins',
+        kcal: 430,
+        protein: '18g',
+        carbs: '60g',
+        fats: '13g',
+        tip: 'Best eaten 60–75 minutes before your workout for steady energy without feeling heavy.',
+        ingredients: [
+          '60g rolled oats',
+          '250ml low-fat milk or soy milk',
+          '1 ripe medium banana, sliced',
+          '1 tbsp natural unsweetened peanut butter',
+          '1/2 tsp cinnamon & 1 tsp chia seeds',
+          'Optional: 1/2 scoop vanilla protein powder or 1 tsp honey'
+        ],
+        steps: [
+          'Add rolled oats and milk to a small saucepan over medium heat. Stir for 4–5 minutes until creamy.',
+          'Remove from heat. If using protein powder, stir it in once slightly cooled so it mixes smoothly.',
+          'Transfer to a bowl and top with sliced banana, peanut butter, chia seeds, and cinnamon.',
+          'Serve warm for clean, long-lasting training fuel.'
+        ]
+      },
+      {
+        id: 'pre-toast',
+        category: 'pre',
+        categoryLabel: 'Pre-Workout',
+        title: 'Banana & Nut Butter Whole-Grain Toast',
+        summary: 'Quick-digesting carbs from banana and whole-grain toast paired with healthy fats for fast pre-gym fuel.',
+        image: 'https://images.unsplash.com/photo-1579028222499-e13cfb21995f?auto=format&fit=crop&w=800&q=80',
+        time: '5 mins',
+        kcal: 365,
+        protein: '12g',
+        carbs: '52g',
+        fats: '12g',
+        tip: 'Ideal 30–45 minutes before morning workouts when you are short on time.',
+        ingredients: [
+          '2 slices whole-wheat or multigrain bread',
+          '1.5 tbsp natural almond or peanut butter',
+          '1 ripe banana, thinly sliced',
+          '1 tsp honey or dark cocoa nibs',
+          'Pinch of sea salt & cinnamon'
+        ],
+        steps: [
+          'Toast the whole-grain bread slices until crisp and golden.',
+          'Spread the peanut or almond butter evenly across the warm toast.',
+          'Layer banana slices neatly on top.',
+          'Finish with a light drizzle of honey, cinnamon, and a tiny pinch of sea salt.'
+        ]
+      },
+      {
+        id: 'pre-yogurt',
+        category: 'pre',
+        categoryLabel: 'Pre-Workout',
+        title: 'Strawberry Banana Greek Yogurt Bowl',
+        summary: 'Refreshing fruit and protein-rich Greek yogurt bowl loaded with natural sugars and amino acids.',
+        image: 'https://images.unsplash.com/photo-1622484212839-2425bcf558f3?auto=format&fit=crop&w=800&q=80',
+        time: '5 mins',
+        kcal: 320,
+        protein: '22g',
+        carbs: '44g',
+        fats: '5g',
+        tip: 'Light on the stomach—perfect 45 minutes before HIIT, running, or leg day.',
+        ingredients: [
+          '180g plain non-fat Greek yogurt (or hung curd)',
+          '1 small banana, sliced',
+          '5–6 fresh strawberries, sliced',
+          '2 tbsp crunchy granola or toasted oats',
+          '1 tsp pure honey'
+        ],
+        steps: [
+          'Spoon the chilled Greek yogurt into a bowl and whisk briefly until smooth.',
+          'Arrange fresh sliced strawberries and banana over the yogurt.',
+          'Sprinkle with granola for crunch and drizzle with honey.',
+          'Enjoy immediately before heading into your session.'
+        ]
+      },
+
+      // -------- POST-WORKOUT MEALS --------
+      {
+        id: 'post-chicken-rice',
+        category: 'post',
+        categoryLabel: 'Post-Workout',
+        title: 'Grilled Chicken & Jasmine Rice Bowl',
+        summary: 'Classic bodybuilding recovery meal combining lean grilled chicken breast, fast-absorbing rice, and crisp veggies.',
+        image: 'https://images.unsplash.com/photo-1762631383520-df106b252f6a?auto=format&fit=crop&w=800&q=80',
+        time: '20 mins',
+        kcal: 540,
+        protein: '48g',
+        carbs: '58g',
+        fats: '10g',
+        tip: 'Eat within 1–2 hours after lifting to rapidly refill muscle glycogen and kick-start repair.',
+        ingredients: [
+          '200g skinless chicken breast',
+          '180g cooked jasmine or white basmati rice',
+          '1 cup shredded lettuce, cucumber & cherry tomatoes',
+          '50g boiled chickpeas or sweet corn',
+          '1 tsp olive oil, paprika, garlic powder, salt & lemon juice'
+        ],
+        steps: [
+          'Season chicken breast with paprika, garlic powder, salt, pepper, and 1/2 tsp olive oil.',
+          'Grill or pan-sear over medium-high heat for 5–6 minutes per side until cooked through; rest 4 minutes, then slice.',
+          'Place warm rice in a wide bowl alongside fresh salad greens and chickpeas.',
+          'Top with sliced grilled chicken and squeeze fresh lemon juice over everything.'
+        ]
+      },
+      {
+        id: 'post-eggs-potato',
+        category: 'post',
+        categoryLabel: 'Post-Workout',
+        title: 'Eggs, Avocado & Roasted Potato Plate',
+        summary: 'Whole-food recovery breakfast or lunch featuring pasture-raised eggs, crispy baby potatoes, and creamy avocado.',
+        image: 'https://images.unsplash.com/photo-1736530485112-5454b2e0a4a4?auto=format&fit=crop&w=800&q=80',
+        time: '20 mins',
+        kcal: 510,
+        protein: '28g',
+        carbs: '42g',
+        fats: '24g',
+        tip: 'Whole eggs contain the complete amino acid spectrum plus micronutrients for optimal hormone & muscle recovery.',
+        ingredients: [
+          '3 whole eggs + 2 egg whites',
+          '200g baby potatoes, halved',
+          '1/2 ripe avocado, sliced',
+          '1 tsp olive oil, smoked paprika, salt & black pepper',
+          'Handful of baby spinach or fresh herbs'
+        ],
+        steps: [
+          'Toss halved potatoes with olive oil, paprika, and salt. Air-fry or roast at 200°C (400°F) for 16–18 minutes until golden.',
+          'Cook eggs (fried, poached, or soft-scrambled) in a lightly greased non-stick pan for 3–4 minutes.',
+          'Plate potatoes, eggs, fresh greens, and sliced avocado.',
+          'Season eggs with cracked black pepper and serve hot.'
+        ]
+      },
+      {
+        id: 'post-herb-chicken',
+        category: 'post',
+        categoryLabel: 'Post-Workout',
+        title: 'Charred Herb Chicken & Charred Veggies',
+        summary: 'High-protein, smoky spiced chicken fillet paired with bell peppers, green beans, and lemon-garlic seasoning.',
+        image: 'https://images.unsplash.com/photo-1598515213692-5f252f75d785?auto=format&fit=crop&w=800&q=80',
+        time: '22 mins',
+        kcal: 460,
+        protein: '46g',
+        carbs: '34g',
+        fats: '13g',
+        tip: 'Pair with an extra slice of sourdough or 100g rice if you just finished a heavy leg session.',
+        ingredients: [
+          '200g chicken breast fillet',
+          '150g boiled or roasted baby potatoes',
+          '1 cup green beans, carrots & cherry tomatoes',
+          '1 tbsp lemon juice, 1 tsp olive oil, minced garlic & dried herbs'
+        ],
+        steps: [
+          'Marinate chicken in lemon juice, garlic, herbs, salt, and pepper for 10 minutes.',
+          'Sear chicken on a hot grill pan for 5–6 minutes per side until lightly charred.',
+          'In the same pan, sauté green beans, carrots, and tomatoes for 4 minutes.',
+          'Serve chicken alongside veggies and baby potatoes with a wedge of fresh lemon.'
+        ]
+      },
+
+      // -------- WEIGHT GAIN MEALS --------
+      {
+        id: 'gain-steak',
+        category: 'gain',
+        categoryLabel: 'Weight Gain',
+        title: 'Herb-Crusted Beef & Garlic Potato Feast',
+        summary: 'Calorie-dense bulking plate packed with high-protein beef and buttery rosemary-roasted potato wedges.',
+        image: 'https://images.unsplash.com/photo-1610631087247-1d6c628f33a5?auto=format&fit=crop&w=800&q=80',
+        time: '30 mins',
+        kcal: 790,
+        protein: '54g',
+        carbs: '64g',
+        fats: '34g',
+        tip: 'Great dinner for hardgainers—high calories from whole foods without feeling overly bloated.',
+        ingredients: [
+          '220g sirloin or ribeye steak (or lamb/paneer substitute)',
+          '280g Russet or red potatoes, cut into wedges',
+          '1 tbsp olive oil + 1 tbsp grass-fed butter',
+          '2 garlic cloves, crushed, plus fresh rosemary & salt'
+        ],
+        steps: [
+          'Toss potato wedges with olive oil, salt, and rosemary. Roast at 210°C (410°F) for 25 minutes until crispy.',
+          'Pat steak dry and season generously with salt and pepper.',
+          'Sear steak in a cast-iron skillet for 3–4 minutes per side; add butter and crushed garlic in the final minute and baste.',
+          'Rest steak for 5 minutes, slice thickly, and serve with the garlic-herb potatoes.'
+        ]
+      },
+      {
+        id: 'gain-pasta',
+        category: 'gain',
+        categoryLabel: 'Weight Gain',
+        title: 'High-Protein Meat & Kale Power Pasta',
+        summary: 'Hearty whole-wheat pasta tossed with seasoned lean pork/chicken medallions, olive oil, and greens.',
+        image: 'https://images.unsplash.com/photo-1582429058754-7af6ca025717?auto=format&fit=crop&w=800&q=80',
+        time: '25 mins',
+        kcal: 740,
+        protein: '50g',
+        carbs: '78g',
+        fats: '24g',
+        tip: 'Adding 1 tbsp extra virgin olive oil and grated parmesan easily bumps healthy calories for lean bulking.',
+        ingredients: [
+          '110g (dry weight) whole-wheat or protein pasta',
+          '180g lean pork loin or chicken thigh strips',
+          '1 cup chopped kale or spinach',
+          '1.5 tbsp extra virgin olive oil & 15g grated parmesan',
+          '2 garlic cloves, chili flakes, lemon zest & salt'
+        ],
+        steps: [
+          'Boil pasta in salted water until al dente; reserve 1/4 cup pasta water before draining.',
+          'Season meat strips with salt, pepper, and garlic. Sear in 1 tbsp olive oil for 5–6 minutes until browned.',
+          'Toss kale into the pan for 2 minutes until wilted, then add drained pasta, splash of pasta water, and remaining olive oil.',
+          'Top with parmesan cheese and lemon zest, and serve immediately.'
+        ]
+      },
+      {
+        id: 'gain-salmon-rice',
+        category: 'gain',
+        categoryLabel: 'Weight Gain',
+        title: 'Glazed Salmon & Sesame Rice Bowl',
+        summary: 'Rich in Omega-3 calories, double rice serving, and steamed broccoli to fuel serious muscle growth.',
+        image: 'https://images.unsplash.com/photo-1771384552858-feb0574f958d?auto=format&fit=crop&w=800&q=80',
+        time: '20 mins',
+        kcal: 760,
+        protein: '46g',
+        carbs: '74g',
+        fats: '30g',
+        tip: 'Fatty fish like salmon gives you calorie density plus joint-supporting Omega-3s for heavy lifting.',
+        ingredients: [
+          '200g wild salmon fillet',
+          '240g cooked sticky or jasmine rice',
+          '1 cup steamed broccoli & shredded red cabbage',
+          '1 tbsp soy sauce, 1 tsp honey, 1 tsp sesame oil & sesame seeds'
+        ],
+        steps: [
+          'Mix soy sauce, honey, and sesame oil into a quick glaze.',
+          'Pan-sear salmon for 4 minutes per side; brush glaze over the salmon in the final minute.',
+          'Fill a deep bowl with warm rice, broccoli, and cabbage.',
+          'Place glazed salmon on top and sprinkle generously with toasted sesame seeds.'
+        ]
+      },
+
+      // -------- WEIGHT LOSS MEALS --------
+      {
+        id: 'loss-salmon-salad',
+        category: 'loss',
+        categoryLabel: 'Weight Loss',
+        title: 'Pan-Seared Salmon & Avocado Greens',
+        summary: 'Low-carb, high-satiety fat-loss bowl combining flaky salmon, crisp greens, cherry tomatoes, and lemon.',
+        image: 'https://images.unsplash.com/photo-1611599537845-1c7aca0091c0?auto=format&fit=crop&w=800&q=80',
+        time: '15 mins',
+        kcal: 410,
+        protein: '38g',
+        carbs: '12g',
+        fats: '23g',
+        tip: 'High protein + healthy fats keep hunger hormones quiet for 4–5 hours on a calorie deficit.',
+        ingredients: [
+          '160g salmon fillet',
+          '2.5 cups mixed arugula, spinach & crisp lettuce',
+          '8 cherry tomatoes, halved & 1/4 avocado, diced',
+          '1 tbsp fresh lemon juice, 1 tsp olive oil, salt & black pepper'
+        ],
+        steps: [
+          'Season salmon with salt and black pepper. Sear in a hot non-stick pan for 4 minutes per side.',
+          'Toss mixed greens, cherry tomatoes, and diced avocado with lemon juice and 1 tsp olive oil.',
+          'Plate the fresh salad and lay the warm seared salmon right on top.'
+        ]
+      },
+      {
+        id: 'loss-quinoa-chickpea',
+        category: 'loss',
+        categoryLabel: 'Weight Loss',
+        title: 'Chickpea, Quinoa & Kale Crunch Bowl',
+        summary: 'Plant-powered fat-loss bowl bursting with dietary fiber, plant protein, and metabolism-friendly micronutrients.',
+        image: 'https://images.unsplash.com/photo-1623428186429-e76984bf48ad?auto=format&fit=crop&w=800&q=80',
+        time: '15 mins',
+        kcal: 385,
+        protein: '19g',
+        carbs: '50g',
+        fats: '11g',
+        tip: 'Want even more protein? Add 100g grilled tofu, paneer, or 2 boiled egg whites on top.',
+        ingredients: [
+          '100g cooked quinoa',
+          '100g boiled chickpeas',
+          '2 cups massaged kale & cucumber slices',
+          '15g shelled pistachios or pumpkin seeds',
+          '1 tbsp lemon-tahini or apple cider vinaigrette'
+        ],
+        steps: [
+          'Place chopped kale in a bowl with a squeeze of lemon and pinch of salt; massage for 30 seconds to soften.',
+          'Top with warm or chilled quinoa, boiled chickpeas, and cucumber slices.',
+          'Drizzle with light dressing and sprinkle pistachios on top for crunch.'
+        ]
+      },
+      {
+        id: 'loss-zucchini-salmon',
+        category: 'loss',
+        categoryLabel: 'Weight Loss',
+        title: 'Herb Zucchini & Lemon Fish Plate',
+        summary: 'Ultra-clean, low-calorie dinner packed with protein and water-rich zucchini to keep calories tight.',
+        image: 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=800&q=80',
+        time: '18 mins',
+        kcal: 360,
+        protein: '36g',
+        carbs: '10g',
+        fats: '19g',
+        tip: 'Swap salmon for white fish (cod/tilapia) or grilled chicken breast to drop calories down to ~270 kcal.',
+        ingredients: [
+          '160g salmon or white fish fillet',
+          '1 medium zucchini, sliced into ribbons or rounds',
+          '1/2 cup diced tomato & fresh herb salsa',
+          '1 tsp olive oil, garlic powder, salt, pepper & lemon zest'
+        ],
+        steps: [
+          'Season fish with garlic powder, salt, and pepper. Bake at 200°C (400°F) for 12–14 minutes or pan-sear.',
+          'Sauté zucchini slices in 1 tsp olive oil for 3–4 minutes until lightly browned.',
+          'Top fish with fresh diced tomato salsa and serve over sautéed zucchini.'
+        ]
+      },
+
+      // -------- HEALTHY MILKSHAKES --------
+      {
+        id: 'shake-choco-pb',
+        category: 'shakes',
+        categoryLabel: 'Healthy Milkshake',
+        title: 'Chocolate Peanut Butter Protein Shake',
+        summary: 'Tastes like a decadent dessert shake with zero refined sugar—thick, creamy, and loaded with muscle fuel.',
+        image: 'https://images.unsplash.com/photo-1653085315536-1379bc836161?auto=format&fit=crop&w=800&q=80',
+        time: '3 mins',
+        kcal: 420,
+        protein: '36g',
+        carbs: '38g',
+        fats: '14g',
+        tip: 'Freeze the banana overnight before blending for a thick, ice-cream-like milkshake texture!',
+        ingredients: [
+          '250ml chilled milk (dairy, almond, or soy)',
+          '1 frozen ripe banana',
+          '1 scoop chocolate whey or plant protein (or 3 tbsp Greek yogurt)',
+          '1 tbsp unsweetened cacao powder',
+          '1 tbsp natural peanut butter & 3–4 ice cubes'
+        ],
+        steps: [
+          'Pour chilled milk into your blender first so powders do not stick to the blades.',
+          'Add frozen banana, protein powder, cacao powder, peanut butter, and ice cubes.',
+          'Blend on high speed for 35–45 seconds until thick and velvety smooth.',
+          'Pour into a tall chilled glass and enjoy immediately.'
+        ]
+      },
+      {
+        id: 'shake-strawberry',
+        category: 'shakes',
+        categoryLabel: 'Healthy Milkshake',
+        title: 'Strawberry Banana Creamy Shake',
+        summary: 'Naturally sweet antioxidant milkshake packed with vitamin C, potassium, and lean dairy protein.',
+        image: 'https://images.unsplash.com/photo-1570696516188-ade861b84a49?auto=format&fit=crop&w=800&q=80',
+        time: '3 mins',
+        kcal: 310,
+        protein: '26g',
+        carbs: '42g',
+        fats: '4g',
+        tip: 'Perfect refreshing post-workout drink on hot afternoons—light, hydrating, and super easy to digest.',
+        ingredients: [
+          '1 cup fresh or frozen strawberries',
+          '1 small ripe banana',
+          '200ml chilled skim milk + 80g plain Greek yogurt',
+          '1/2 tsp vanilla extract & 1 tbsp soaked chia seeds (optional)'
+        ],
+        steps: [
+          'Wash and hull fresh strawberries (or use frozen berries straight from the freezer).',
+          'Combine milk, Greek yogurt, strawberries, banana, and vanilla extract in a blender.',
+          'Blend on high for 30–40 seconds until bright pink and frothy.',
+          'Serve immediately garnished with a fresh mint leaf or sliced strawberry.'
+        ]
+      },
+      {
+        id: 'shake-mango',
+        category: 'shakes',
+        categoryLabel: 'Healthy Milkshake',
+        title: 'Mango Almond Protein Milkshake',
+        summary: 'Tropical golden milkshake made with sweet mango, roasted almonds, cardamom, and protein-rich yogurt.',
+        image: 'https://images.unsplash.com/photo-1619898804188-e7bad4bd2127?auto=format&fit=crop&w=800&q=80',
+        time: '4 mins',
+        kcal: 375,
+        protein: '24g',
+        carbs: '48g',
+        fats: '10g',
+        tip: 'For a weight-gain boost, add 30g rolled oats and 2 pitted Medjool dates before blending.',
+        ingredients: [
+          '1 cup ripe mango cubes (fresh or frozen)',
+          '200ml chilled milk + 100g plain Greek yogurt',
+          '10 soaked almonds (peeled) or 1 tbsp almond butter',
+          'Pinch of green cardamom powder & 4 ice cubes'
+        ],
+        steps: [
+          'Add chilled milk, yogurt, and mango cubes to the blender.',
+          'Drop in soaked almonds, cardamom powder, and ice cubes.',
+          'Blend on high until completely smooth and creamy.',
+          'Pour into a glass and top with a few slivered almonds.'
+        ]
+      },
+      {
+        id: 'shake-green',
+        category: 'shakes',
+        categoryLabel: 'Healthy Milkshake',
+        title: 'Green Spinach, Kiwi & Oats Shake',
+        summary: 'Clean micronutrient powerhouse blending baby spinach, tangy kiwi, milk, and oats for sustained fat-loss energy.',
+        image: 'https://images.unsplash.com/photo-1610970881699-44a5587cabec?auto=format&fit=crop&w=800&q=80',
+        time: '4 mins',
+        kcal: 280,
+        protein: '22g',
+        carbs: '36g',
+        fats: '5g',
+        tip: 'You cannot taste the spinach at all—the kiwi and banana give it a fresh, sweet tropical flavor.',
+        ingredients: [
+          '1 large handful fresh baby spinach',
+          '1 ripe kiwi (peeled) + 1/2 frozen banana',
+          '220ml unsweetened almond or dairy milk',
+          '1 scoop unflavored/vanilla protein (or 100g Greek yogurt) + 2 tbsp rolled oats'
+        ],
+        steps: [
+          'Blend the spinach and milk together first for 15 seconds so there are no leafy bits.',
+          'Add kiwi, frozen banana, oats, and protein source.',
+          'Blend for another 30 seconds until vibrant green and velvety.',
+          'Serve chilled as a quick breakfast or afternoon snack.'
+        ]
+      }
+    ];
+
+    // 3. Render Recipe Cards & Handle Filtering + Search
+    const recipesGrid = document.getElementById('recipesGrid');
+    const recipeCount = document.getElementById('recipeCount');
+    const activeCategoryTitle = document.getElementById('activeCategoryTitle');
+    const emptyState = document.getElementById('emptyState');
+    const searchInput = document.getElementById('searchInput');
+
+    let currentFilter = 'all';
+    let currentSearch = '';
+
+    const categoryTitles = {
+      all: 'All Fitness Recipes & Milkshakes',
+      pre: 'Pre-Workout Energy Meals',
+      post: 'Post-Workout Recovery Meals',
+      gain: 'Weight Gain & Bulking Meals',
+      loss: 'Weight Loss & Lean Meals',
+      shakes: 'Healthy Protein Milkshakes'
+    };
+
+    function renderRecipes() {
+      const filtered = recipes.filter(r => {
+        const matchesCategory = (currentFilter === 'all' || r.category === currentFilter);
+        const searchStr = (r.title + ' ' + r.summary + ' ' + r.ingredients.join(' ')).toLowerCase();
+        const matchesSearch = searchStr.includes(currentSearch.trim().toLowerCase());
+        return matchesCategory && matchesSearch;
+      });
+
+      activeCategoryTitle.textContent = categoryTitles[currentFilter];
+      recipeCount.textContent = `Showing ${filtered.length} recipe${filtered.length === 1 ? '' : 's'}`;
+
+      if (filtered.length === 0) {
+        recipesGrid.innerHTML = '';
+        emptyState.style.display = 'block';
+        return;
+      }
+
+      emptyState.style.display = 'none';
+
+      recipesGrid.innerHTML = filtered.map(r => `
+        <article class="recipe-card">
+          <div class="recipe-img">
+            <img src="${r.image}" alt="${r.title}" loading="lazy" onerror="this.style.display='none'">
+            <span class="cat-badge">${r.categoryLabel}</span>
+            <span class="free-pill">Free</span>
+          </div>
+          <div class="recipe-body">
+            <h3>${r.title}</h3>
+            <p>${r.summary}</p>
+            <div class="macros-bar">
+              <div class="macro-item"><strong>${r.kcal}</strong><span>Kcal</span></div>
+              <div class="macro-item"><strong>${r.protein}</strong><span>Protein</span></div>
+              <div class="macro-item"><strong>${r.carbs}</strong><span>Carbs</span></div>
+              <div class="macro-item"><strong>${r.fats}</strong><span>Fats</span></div>
+            </div>
+            <div class="recipe-footer">
+              <span class="prep-time">⏱ ${r.time}</span>
+              <button class="btn btn-primary btn-sm open-recipe-btn" data-id="${r.id}">View Full Recipe</button>
+            </div>
+          </div>
+        </article>
+      `).join('');
+
+      // Attach click listeners to rendered buttons
+      document.querySelectorAll('.open-recipe-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = btn.getAttribute('data-id');
+          const found = recipes.find(item => item.id === id);
+          if (found) openRecipeModal(found);
+        });
+      });
+    }
+
+    // Filter Buttons
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentFilter = btn.getAttribute('data-filter');
+        renderRecipes();
+      });
+    });
+
+    // Search Input
+    searchInput.addEventListener('input', (e) => {
+      currentSearch = e.target.value;
+      renderRecipes();
+    });
+
+    // Reset Filters
+    document.getElementById('resetFiltersBtn').addEventListener('click', () => {
+      currentFilter = 'all';
+      currentSearch = '';
+      searchInput.value = '';
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      document.querySelector('.filter-btn[data-filter="all"]').classList.add('active');
+      renderRecipes();
+    });
+
+    renderRecipes();
+
+    // 4. Full Recipe Modal Logic
+    const recipeModal = document.getElementById('recipeModal');
+    const modalClose = document.getElementById('modalClose');
+    let activeRecipeForCopy = null;
+
+    function openRecipeModal(r) {
+      activeRecipeForCopy = r;
+      const modalImg = document.getElementById('modalImg');
+      modalImg.style.display = 'block';
+      modalImg.src = r.image;
+      modalImg.alt = r.title;
+
+      document.getElementById('modalTag').textContent = `${r.categoryLabel} • ⏱ ${r.time} • 100% Free`;
+      document.getElementById('modalTitle').textContent = r.title;
+
+      document.getElementById('modalMacros').innerHTML = `
+        <div class="macro-item"><strong>${r.kcal}</strong><span>Kcal</span></div>
+        <div class="macro-item"><strong>${r.protein}</strong><span>Protein</span></div>
+        <div class="macro-item"><strong>${r.carbs}</strong><span>Carbs</span></div>
+        <div class="macro-item"><strong>${r.fats}</strong><span>Fats</span></div>
+      `;
+
+      document.getElementById('modalTip').innerHTML = `<strong>Pro Tip:</strong> ${r.tip}`;
+      document.getElementById('modalIngredients').innerHTML = r.ingredients.map(i => `<li>${i}</li>`).join('');
+      document.getElementById('modalSteps').innerHTML = r.steps.map(s => `<li>${s}</li>`).join('');
+
+      recipeModal.classList.add('open');
+      recipeModal.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeModal() {
+      recipeModal.classList.remove('open');
+      recipeModal.setAttribute('aria-hidden', 'true');
+    }
+
+    modalClose.addEventListener('click', closeModal);
+    recipeModal.addEventListener('click', (e) => {
+      if (e.target === recipeModal) closeModal();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    // Copy Ingredients to Clipboard
+    document.getElementById('copyIngredientsBtn').addEventListener('click', async () => {
+      if (!activeRecipeForCopy) return;
+      const text = `${activeRecipeForCopy.title} - Ingredients:\n` +
+        activeRecipeForCopy.ingredients.map(i => `- ${i}`).join('\n');
+      try {
+        await navigator.clipboard.writeText(text);
+        showToast('Ingredients copied to clipboard!');
+      } catch (err) {
+        showToast('Ingredients ready to view!');
+      }
+    });
+
+    // 5. Toast Notification
+    const toast = document.getElementById('toast');
+    const toastMsg = document.getElementById('toastMsg');
+    let toastTimeout;
+
+    function showToast(msg) {
+      toastMsg.textContent = msg;
+      toast.classList.add('show');
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+  </script>
+</body>
+</html>
